@@ -4,3 +4,5 @@
 Simulation
 *.jpg
 *.png
+log.err
+log.log
