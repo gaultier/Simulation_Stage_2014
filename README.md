@@ -37,4 +37,8 @@ display the neighbour octants.
 On my computer (16 Gb RAM, 1 Gb VRAM, RADEON HD 8570) it runs at around 30 FPS constant.
 The initial generation takes around 4s for 1024 objects and is linear in the number of objects.
 
+##Documentation
+Type `doxygen` in console and it should generate the documentation following the `Doxyfile` file.
 
+##Logs
+Logs can be filtered. Have a look at `log.log` and `log.err`.
