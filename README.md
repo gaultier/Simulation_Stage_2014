@@ -25,8 +25,8 @@ of what you can do with the Oculus Rift.
 ## Command line options
 
 - `-h` or `--help` for help
-- `-o` for Oculus mode
-- `-f` for fullscreen
+- `-o` or `--oculus` for Oculus mode
+- `-f` or `--fullscreen` for fullscreen
 
 ##How it works
 
