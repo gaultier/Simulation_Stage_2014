@@ -14,7 +14,7 @@
 #include <random>
 #include <chrono>
 
-std::unique_ptr<Logger> logger(new Logger("log.log", "log.err", true, Severity::all));
+std::unique_ptr<Logger> logger(new Logger("log.log", "log.err", true, Severity::info));
 std::unique_ptr<NullOculus> nullOculus(new NullOculus);
 
 Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen):
