@@ -10,7 +10,7 @@ SOURCES += \
     Scene.cpp \
     Shader.cpp \
     Texture.cpp \
-    Utils.cpp \
+    Utils.cpp
 
 HEADERS += \
     Include/GL3/gl3.h \
