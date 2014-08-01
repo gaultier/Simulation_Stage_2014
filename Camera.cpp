@@ -7,7 +7,7 @@
 
 #include <cmath>
 
-Camera::Camera(glm::vec3 position, glm::vec3 eyeTarget, glm::vec3 verticalAxis, float sensibility, float speed, Input const & input):
+Camera::Camera(glm::vec3 const & position, glm::vec3 const & eyeTarget, glm::vec3 const & verticalAxis, float sensibility, float speed, Input const & input):
     input_ {input},
     phi_ {0},
     theta_ {0},
@@ -19,7 +19,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 eyeTarget, glm::vec3 verticalAxis, 
     sensibility_ {sensibility},
     speed_ {speed}
 {
-    setEyeTarget(eyeTarget_);
+    setEyeTarget();
 }
 
 Camera::~Camera()
@@ -72,7 +72,7 @@ const Input& Camera::input() const
     return input_;
 }
 
-void Camera::move(glm::vec3 clampMin, glm::vec3 clampMax)
+void Camera::move(glm::vec3 const & clampMin, glm::vec3 const & clampMax)
 {
     movePosition();
     Utils::clamp(position_, clampMin, clampMax);
@@ -152,7 +152,7 @@ void Camera::lookAt(glm::mat4 & modelview)
     logger->debug(logger->get() << "Camera look at " << Utils::toString(modelview));
 }
 
-void Camera::setEyeTarget(glm::vec3 eyeTarget)
+void Camera::setEyeTarget()
 {
     orientation_ = eyeTarget_ - position_;
     orientation_ = glm::normalize(orientation_);

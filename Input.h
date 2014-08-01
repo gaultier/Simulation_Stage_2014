@@ -51,7 +51,7 @@ class Input
     void updateEvent();
 
     bool isOver() const;
-    bool isKeyboardKeyDown(SDL_Scancode const key) const;
+    bool isKeyboardKeyDown(SDL_Scancode const & key) const;
     bool isMouseKeyDown(Uint8 key);
 
     /**

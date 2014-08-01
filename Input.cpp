@@ -90,7 +90,7 @@ bool Input::isOver() const
     return isOver_;
 }
 
-bool Input::isKeyboardKeyDown(SDL_Scancode const key) const
+bool Input::isKeyboardKeyDown(SDL_Scancode const & key) const
 {
     return keyboardKeys_.at(key);
 }

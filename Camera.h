@@ -30,7 +30,7 @@ public:
      * @param sensibility The sensibility of the camera, i.e by how much the camera rotates when we move the mouse
      * @param speed The speed of the camera, i.e by how much the camera moves when we hit the corresponding keyboard keys
      */
-    Camera(glm::vec3 position, glm::vec3 eyeTarget, glm::vec3 verticalAxis, float sensibility, float speed, Input const & input);
+    Camera(glm::vec3 const & position, glm::vec3 const & eyeTarget, glm::vec3 const & verticalAxis, float sensibility, float speed, Input const & input);
 
     /**
     * @brief Destructor
@@ -49,7 +49,7 @@ public:
      * @param clampMin The minimum clamp value
      * @param clampMax The maximum clamp value
      */
-    void move(glm::vec3 clampMin, glm::vec3 clampMax);
+    void move(glm::vec3 const & clampMin, glm::vec3 const & clampMax);
 
     /**
      * @brief Makes the camera look at a given point described by the modelview matrix
@@ -72,7 +72,7 @@ public:
      */
     void updateEyeTarget();
 
-    void setEyeTarget(glm::vec3 eyeTarget);
+    void setEyeTarget();
     void setPosition(glm::vec3 position);
     glm::vec3 position();
     float sensibility() const;

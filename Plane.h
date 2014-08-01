@@ -22,7 +22,7 @@
 class Plane: public GraphicObject
 {
 public:
-    Plane(float x, float y, float z, float width, float height, float repeatWidth, float repeatHeight, std::string const vertexShader, std::string const fragShader, std::string const texture);
+    Plane(float x, float y, float z, float width, float height, float repeatWidth, float repeatHeight, std::string const & vertexShader, std::string const & fragShader, std::string const & texture);
     ~Plane();
     void draw(glm::mat4 &projection, glm::mat4 &modelview);
     virtual void load();

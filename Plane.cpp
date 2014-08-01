@@ -2,7 +2,7 @@
 #include "Include/glm/gtx/transform.hpp"
 #include "Include/glm/gtc/type_ptr.hpp"
 
-Plane::Plane(float x, float y, float z, float width, float height, float repeatWidth, float repeatHeight, std::string const vertexShader, std::string const fragmentShader, std::string const textureFile):
+Plane::Plane(float x, float y, float z, float width, float height, float repeatWidth, float repeatHeight, std::string const & vertexShader, std::string const & fragmentShader, std::string const &  textureFile):
     GraphicObject(x, y, z, width, vertexShader, fragmentShader),
     texture_ (nullptr)
 {
