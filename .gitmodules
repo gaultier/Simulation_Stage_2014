@@ -1,0 +1,3 @@
+[submodule "LogCpp"]
+	path = LogCpp
+	url = git@github.com:gaultier/LogCpp.git
