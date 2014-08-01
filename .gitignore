@@ -4,5 +4,7 @@
 Simulation
 *.jpg
 *.png
+*.tga
+*.txt
 log.err
 log.log
