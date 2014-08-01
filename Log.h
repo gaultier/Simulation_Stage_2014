@@ -7,23 +7,33 @@
 #include <fstream>
 #include <memory>
 #include <chrono>
+#include <cstdint>
 
 using namespace std;
 
 enum Severity
 {
-    all,
-    trace,
-    debug,
-    info,
-    error,
-    none
+    trace = 1,
+    debug = 2,
+    info = 4,
+    error = 8
 };
+
+/*
+namespace Severity
+{
+    int16_t trace;
+    int16_t debug;
+    int16_t info;
+    int16_t error;
+
+}
+*/
 
 class Logger
 {
 public:
-    Logger(bool logToConsole, Severity const & severity):
+    Logger(bool logToConsole, uint severity):
         logFileName_ {""},
         errorFileName_ {""},
         logToFile_ {false},
@@ -35,7 +45,7 @@ public:
     {
     }
 
-    Logger(string const & logFileName, string const & errorFileName, bool logToConsole, Severity const & severity):
+    Logger(string const & logFileName, string const & errorFileName, bool logToConsole, uint severity):
         logFileName_ {logFileName},
         errorFileName_ {errorFileName},
         logFile_ {logFileName},
@@ -102,7 +112,7 @@ public:
     {
         Severity severity = Severity::trace;
 
-        if(severity >= severity_)
+        if(severity_ & severity)
         {
             log(stream, "trace", clog, logFile_);
         }
@@ -114,7 +124,7 @@ public:
     {
         Severity severity = Severity::debug;
 
-        if(severity >= severity_)
+        if(severity_ & severity)
         {
             log(stream, "debug", clog, logFile_);
         }
@@ -126,7 +136,7 @@ public:
     {
         Severity severity = Severity::info;
 
-        if(severity >= severity_)
+        if(severity_ & severity)
         {
             log(stream, "info", cout, logFile_);
         }
@@ -138,7 +148,7 @@ public:
     {
         Severity severity = Severity::error;
 
-        if(severity >= severity_)
+        if(severity_ & severity)
         {
             log(stream, "error", cerr, errorFile_);
         }
@@ -158,15 +168,8 @@ public:
         buffer_.str("");
     }
 
-    Severity severity() const
-    {
-        return severity_;
-    }
-
-    void setSeverity(const Severity& severity)
-    {
-        severity_ = severity;
-    }
+    uint severity() const;
+    void setSeverity(const uint& severity);
 
 private:
     stringstream buffer_;
@@ -184,7 +187,7 @@ private:
      */
     long long logCount_;
 
-    Severity severity_;
+     uint severity_;
 };
 
 extern unique_ptr<Logger> logger;
