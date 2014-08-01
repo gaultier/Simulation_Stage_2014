@@ -46,7 +46,7 @@ void Camera::orientate(float xRel, float yRel)
     updateEyeTarget();
 }
 
-void Camera::setOrientation(float phiRad, float thetaRad, float psi)
+void Camera::setOrientation(float phiRad, float thetaRad)
 {
     if(verticalAxis_.x)
     {

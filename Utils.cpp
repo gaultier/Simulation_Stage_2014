@@ -94,7 +94,7 @@ float isEqual(float a, float b)
     return (fabs(a - b) < std::numeric_limits<double>::epsilon());
 }
 
-glm::mat4 ovr2glmMat(OVR::Matrix4f mat)
+glm::mat4 ovr2glmMat(OVR::Matrix4f const & mat)
 {
     glm::mat4 res;
 
@@ -109,12 +109,12 @@ glm::mat4 ovr2glmMat(OVR::Matrix4f mat)
     return res;
 }
 
-std::string toString(glm::vec3 vec)
+std::string toString(glm::vec3 const & vec)
 {
     return "(" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + ")";
 }
 
-std::string toString(glm::mat4 mat)
+std::string toString(glm::mat4 const & mat)
 {
     std::string res;
 
@@ -130,7 +130,7 @@ std::string toString(glm::mat4 mat)
     return res;
 }
 
-void clamp(glm::vec3 & vecToClamp, glm::vec3 clampMin, glm::vec3 clampMax)
+void clamp(glm::vec3 & vecToClamp, glm::vec3 const & clampMin, glm::vec3 const & clampMax)
 {
     glm::vec3 oldVec = vecToClamp;
 

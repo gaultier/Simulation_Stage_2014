@@ -43,7 +43,7 @@ class Shader
 
     Shader();
     Shader(Shader const &copy);
-    Shader(std::string vertexSource, std::string fragmentSource);
+    Shader(std::string const & vertexSource, std::string const & fragmentSource);
     ~Shader();
 
     Shader& operator=(Shader const &copy);

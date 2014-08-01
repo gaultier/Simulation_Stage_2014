@@ -19,7 +19,7 @@ Shader::Shader(Shader const &copy)
 }
 
 
-Shader::Shader(std::string vertexSource, std::string fragmentSource) :
+Shader::Shader(std::string const & vertexSource, std::string const & fragmentSource) :
     vertexID_ {0},
     fragmentID_ {0},
     programID_ {0},

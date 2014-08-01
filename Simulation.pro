@@ -322,3 +322,6 @@ OTHER_FILES += \
     Include/OVR/LibOVR/Makefile \
     Makefile
 
+
+QMAKE_CXXFLAGS += -O3
+QMAKE_LFLAGS -= -O1

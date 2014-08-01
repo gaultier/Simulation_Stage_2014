@@ -5,6 +5,7 @@
 #include "Log.h"
 
 #include <algorithm>
+#include <chrono>
 
 Cube::Cube(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader):
     GraphicObject(x, y, z, size, vertexShader, fragmentShader)
@@ -32,6 +33,9 @@ Cube::Cube(float x, float y, float z, float size, std::string const & vertexShad
                  -1.0, 1.0, 1.0,   1.0, 1.0, 1.0,   1.0, 1.0, -1.0,         // Face 6 E
                  -1.0, 1.0, 1.0,   -1.0, 1.0, -1.0,   1.0, 1.0, -1.0};      // Face 6
 
+    auto startCubeColors = std::chrono::high_resolution_clock::now();
+
+
     colors_ = {1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 1
                1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 1
 
@@ -53,6 +57,10 @@ Cube::Cube(float x, float y, float z, float size, std::string const & vertexShad
     std::transform(vertices_.begin(), vertices_.end(), vertices_.begin(),
                    std::bind1st(std::multiplies<float>(), size/2));
 
+    auto endCubeColors = std::chrono::high_resolution_clock::now();
+
+    logger->debug(logger->get() << "Cube colors part took "
+                << chrono::duration_cast<std::chrono::microseconds>(endCubeColors - startCubeColors).count() << " micros");
     load();
 }
 

@@ -165,11 +165,9 @@ void Scene::initGObjects()
                     << chrono::duration_cast<std::chrono::milliseconds>(endCrateGeneration - startCrateGeneration).count() << " ms");
     }
     auto endGeneration = std::chrono::high_resolution_clock::now();
+    auto generationTime = std::chrono::duration_cast<std::chrono::milliseconds>(endGeneration - startGeneration).count();
 
-    auto generationDuration = std::chrono::duration_cast<std::chrono::milliseconds>(endGeneration - startGeneration);
-    auto generationTime = std::chrono::duration_cast<std::chrono::milliseconds>(generationDuration).count();
-
-    logger->info(logger->get() << "The generation of " << gObjectsCount_ << " graphic objects took " << generationTime << " ms");
+    logger->info(logger->get() << "Summary: the generation of " << gObjectsCount_ << " graphic objects took " << generationTime << " ms");
 }
 
 void Scene::mainLoop()

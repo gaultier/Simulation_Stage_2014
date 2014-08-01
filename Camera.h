@@ -85,7 +85,7 @@ public:
     void setPhi(float phi);
     float theta() const;
     void setTheta(float theta);
-    void setOrientation(float phiRad, float thetaRad, float psiRad = 0);
+    void setOrientation(float phiRad, float thetaRad);
 
     const Input& input() const;
 

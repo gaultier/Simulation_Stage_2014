@@ -63,7 +63,7 @@ namespace Utils
      * @param clampMin The 3 dimensional vector which is the minimum limit we clamp the vector to
      * @param clampMax The 3 dimensional vector which is the maximum limit we clamp the vector to
      */
-    void clamp(glm::vec3 & vecToClamp, glm::vec3 clampMin, glm::vec3 clampMax);
+    void clamp(glm::vec3 & vecToClamp, glm::vec3 const & clampMin, glm::vec3 const & clampMax);
 
     /**
      * @brief Compares two floats and tells if they are equal
@@ -83,7 +83,7 @@ namespace Utils
      * @param mat The 4 dimensional matrix in Oculus SDK format
      * @return A 4 dimensional matrix in GLM format containing the values of the matrix we converted
      */
-    glm::mat4 ovr2glmMat(OVR::Matrix4f mat);
+    glm::mat4 ovr2glmMat(OVR::Matrix4f const & mat);
 
     /**
      * @brief Converts a 3 dimensional vector to a pretty string
@@ -91,7 +91,7 @@ namespace Utils
      * @param vec The 3 dimensional vector to convert to a string
      * @return A string containing the values of the vector we converted
      */
-    std::string toString(glm::vec3 vec);
+    std::string toString(glm::vec3 const & vec);
 
     /**
      * @brief Converts a 4 dimensional matrix to a pretty string
@@ -99,7 +99,7 @@ namespace Utils
      * @param mat The 4 dimensional matrix to convert to a string
      * @return A string containing the values of the matrix we converted
      */
-    std::string toString(glm::mat4 mat);
+    std::string toString(glm::mat4 const & mat);
 }
 
 #endif // UTILS_H

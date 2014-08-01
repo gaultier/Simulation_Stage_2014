@@ -43,7 +43,7 @@ public:
      * @brief Constructor
      * @param file The image file we read from
      */
-    Texture(std::string file);
+    Texture(std::string const & file);
 
     /**
      * @brief Copy constructor
@@ -109,7 +109,7 @@ public:
      * @param file The resource texture file, which uniquely identifies it
      * @return A pointer to the queried texture
      */
-    static std::shared_ptr<Texture> & createTexture(std::string file);
+    static std::shared_ptr<Texture> & createTexture(std::string const & file);
 
     static std::string toString();
 

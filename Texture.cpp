@@ -4,7 +4,7 @@
 
 std::vector<std::shared_ptr<Texture>> TextureFactory::textures_;
 
-Texture::Texture(std::string file):
+Texture::Texture(std::string const & file):
     file_ {file},
     id_ {0}
 {
@@ -146,7 +146,7 @@ const std::string & Texture::file() const
     return file_;
 }
 
-std::shared_ptr<Texture> & TextureFactory::createTexture(std::string file)
+std::shared_ptr<Texture> & TextureFactory::createTexture(std::string const & file)
 {
     logger->debug(logger->get() << "Looking for texture " << file);
 

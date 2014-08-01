@@ -14,7 +14,7 @@ CC            = clang
 CXX           = clang++
 DEFINES       = -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-CXXFLAGS      = -pipe -g -std=c++11 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
+CXXFLAGS      = -pipe -O3 -g -std=c++11 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I../Qt/5.3/gcc_64/mkspecs/linux-clang -I. -I../Qt/5.3/gcc_64/include -I../Qt/5.3/gcc_64/include/QtGui -I../Qt/5.3/gcc_64/include/QtCore -I.
 LINK          = clang++
 LFLAGS        = -ccc-gcc-name g++ -Wl,-rpath,/home/gaultier/Qt/5.3/gcc_64 -Wl,-rpath,/home/gaultier/Qt/5.3/gcc_64/lib
@@ -771,7 +771,8 @@ Cube.o: Cube.cpp Utils.h \
 		Include/glm/gtc/constants.hpp \
 		Include/glm/gtc/constants.inl \
 		Include/glm/gtc/quaternion.inl \
-		Include/glm/gtc/type_ptr.inl
+		Include/glm/gtc/type_ptr.inl \
+		Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Cube.o Cube.cpp
 
 GraphicObject.o: GraphicObject.cpp GraphicObject.h \
