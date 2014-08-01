@@ -8,7 +8,7 @@
 #include "GraphicObject.h"
 #include "Plane.h"
 #include "Utils.h"
-#include "Log.h"
+#include "LogCpp/Log.h"
 
 #include <numeric>
 #include <random>

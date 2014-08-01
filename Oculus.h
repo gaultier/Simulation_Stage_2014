@@ -20,7 +20,7 @@
 #include "Include/glm/glm.hpp"
 #include "SDL2/SDL_syswm.h"
 #include "Utils.h"
-#include "Log.h"
+#include "LogCpp/Log.h"
 
 #include <iostream>
 //To ignore the asserts uncomment this line:

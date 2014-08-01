@@ -1,4 +1,4 @@
-#include "Log.h"
+#include "LogCpp/Log.h"
 #include "Scene.h"
 
 int main(int argc, char** argv)

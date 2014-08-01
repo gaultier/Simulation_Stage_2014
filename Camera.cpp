@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include "Utils.h"
 #include "Include/glm/gtx/transform.hpp"
-#include "Log.h"
+#include "LogCpp/Log.h"
 #include "Include/glm/gtc/type_ptr.hpp"
 
 

@@ -2,7 +2,7 @@
 #include "Utils.h"
 #include "Scene.h"
 #include "Oculus.h"
-#include "Log.h"
+#include "LogCpp/Log.h"
 
 #include <iostream>
 

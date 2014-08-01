@@ -2,7 +2,7 @@
 #include "Crate.h"
 #include "Include/glm/gtx/transform.hpp"
 #include "Include/glm/gtc/type_ptr.hpp"
-#include "Log.h"
+#include "LogCpp/Log.h"
 
 Crate::Crate(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader, std::string const & textureFile):
     Cube(x, y, z, size, vertexShader, fragmentShader),

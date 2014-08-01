@@ -50,7 +50,6 @@ SOURCES       = Camera.cpp \
 		Cube.cpp \
 		GraphicObject.cpp \
 		Input.cpp \
-		Log.cpp \
 		main.cpp \
 		Oculus.cpp \
 		Plane.cpp \
@@ -63,7 +62,6 @@ OBJECTS       = Camera.o \
 		Cube.o \
 		GraphicObject.o \
 		Input.o \
-		Log.o \
 		main.o \
 		Oculus.o \
 		Plane.o \
@@ -177,7 +175,6 @@ DIST          = ../Qt/5.3/gcc_64/mkspecs/features/spec_pre.prf \
 		Cube.cpp \
 		GraphicObject.cpp \
 		Input.cpp \
-		Log.cpp \
 		main.cpp \
 		Oculus.cpp \
 		Plane.cpp \
@@ -557,7 +554,7 @@ Camera.o: Camera.cpp Camera.h \
 		Include/OVR/LibOVR/Src/OVR_CAPI_GL.h \
 		Include/GL3/gl3.h \
 		Utils.h \
-		Log.h \
+		LogCpp/Log.h \
 		Include/glm/gtx/transform.hpp \
 		Include/glm/gtc/matrix_transform.hpp \
 		Include/glm/gtc/matrix_transform.inl \
@@ -657,7 +654,7 @@ Crate.o: Crate.cpp Utils.h \
 		Include/glm/gtc/constants.inl \
 		Include/glm/gtc/quaternion.inl \
 		Include/glm/gtc/type_ptr.inl \
-		Log.h
+		LogCpp/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Crate.o Crate.cpp
 
 Cube.o: Cube.cpp Utils.h \
@@ -743,7 +740,7 @@ Cube.o: Cube.cpp Utils.h \
 		Include/glm/gtc/constants.inl \
 		Include/glm/gtc/quaternion.inl \
 		Include/glm/gtc/type_ptr.inl \
-		Log.h
+		LogCpp/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Cube.o Cube.cpp
 
 GraphicObject.o: GraphicObject.cpp GraphicObject.h \
@@ -816,7 +813,7 @@ GraphicObject.o: GraphicObject.cpp GraphicObject.h \
 		Include/OVR/LibOVR/Src/Kernel/OVR_Allocator.h \
 		Include/OVR/LibOVR/Src/Kernel/OVR_Std.h \
 		Include/OVR/LibOVR/Src/Kernel/OVR_Alg.h \
-		Log.h
+		LogCpp/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GraphicObject.o GraphicObject.cpp
 
 Input.o: Input.cpp Input.h \
@@ -919,7 +916,7 @@ Input.o: Input.cpp Input.h \
 		Include/OVR/LibOVR/Src/OVR_CAPI_GL.h \
 		Include/GL3/gl3.h \
 		Utils.h \
-		Log.h \
+		LogCpp/Log.h \
 		Scene.h \
 		Include/glm/gtx/transform.hpp \
 		Include/glm/gtc/matrix_transform.hpp \
@@ -944,10 +941,7 @@ Input.o: Input.cpp Input.h \
 		Include/Octree/octree.tcc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Input.o Input.cpp
 
-Log.o: Log.cpp Log.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Log.o Log.cpp
-
-main.o: main.cpp Log.h \
+main.o: main.cpp LogCpp/Log.h \
 		Scene.h \
 		Include/GL3/gl3.h \
 		Include/glm/glm.hpp \
@@ -1170,7 +1164,7 @@ Oculus.o: Oculus.cpp Oculus.h \
 		Include/glm/core/func_noise.hpp \
 		Include/glm/core/func_noise.inl \
 		Utils.h \
-		Log.h
+		LogCpp/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Oculus.o Oculus.cpp
 
 Plane.o: Plane.cpp Plane.h \
@@ -1380,7 +1374,7 @@ Scene.o: Scene.cpp Scene.h \
 		Include/OVR/LibOVR/Src/OVR_CAPI.h \
 		Include/OVR/LibOVR/Src/OVR_CAPI_GL.h \
 		Utils.h \
-		Log.h \
+		LogCpp/Log.h \
 		Cube.h \
 		GraphicObject.h \
 		Input.h \
@@ -1392,7 +1386,7 @@ Scene.o: Scene.cpp Scene.h \
 
 Shader.o: Shader.cpp Shader.h \
 		Include/GL3/gl3.h \
-		Log.h
+		LogCpp/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Shader.o Shader.cpp
 
 Texture.o: Texture.cpp Texture.h \
@@ -1464,7 +1458,7 @@ Texture.o: Texture.cpp Texture.h \
 		Include/OVR/LibOVR/Src/Kernel/OVR_Allocator.h \
 		Include/OVR/LibOVR/Src/Kernel/OVR_Std.h \
 		Include/OVR/LibOVR/Src/Kernel/OVR_Alg.h \
-		Log.h
+		LogCpp/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Texture.o Texture.cpp
 
 Utils.o: Utils.cpp Utils.h \
@@ -1534,7 +1528,7 @@ Utils.o: Utils.cpp Utils.h \
 		Include/OVR/LibOVR/Src/Kernel/OVR_Allocator.h \
 		Include/OVR/LibOVR/Src/Kernel/OVR_Std.h \
 		Include/OVR/LibOVR/Src/Kernel/OVR_Alg.h \
-		Log.h
+		LogCpp/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Utils.o Utils.cpp
 
 ####### Install

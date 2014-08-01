@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "Log.h"
+#include "LogCpp/Log.h"
 
 Shader::Shader() :
     vertexID_ {0},

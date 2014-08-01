@@ -1,5 +1,5 @@
 #include "GraphicObject.h"
-#include "Log.h"
+#include "LogCpp/Log.h"
 
 #include <cstring>
 

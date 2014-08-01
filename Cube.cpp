@@ -2,7 +2,7 @@
 #include "Cube.h"
 #include "Include/glm/gtx/transform.hpp"
 #include "Include/glm/gtc/type_ptr.hpp"
-#include "Log.h"
+#include "LogCpp/Log.h"
 
 #include <algorithm>
 #include <chrono>

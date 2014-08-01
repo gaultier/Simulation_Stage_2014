@@ -4,7 +4,6 @@ SOURCES += \
     Cube.cpp \
     GraphicObject.cpp \
     Input.cpp \
-    Log.cpp \
     main.cpp \
     Oculus.cpp \
     Plane.cpp \
@@ -225,7 +224,6 @@ HEADERS += \
     Cube.h \
     GraphicObject.h \
     Input.h \
-    Log.h \
     Oculus.h \
     Plane.h \
     Scene.h \
@@ -309,7 +307,8 @@ HEADERS += \
     Include/OVR/OVR/LibOVR/Src/OVR_Win32_HMDDevice.h \
     Include/OVR/OVR/LibOVR/Src/OVR_Win32_SensorDevice.h \
     Include/OVR/3rdParty/EDID/edid.h \
-    Include/OVR/3rdParty/TinyXml/tinyxml2.h
+    Include/OVR/3rdParty/TinyXml/tinyxml2.h \
+    LogCpp/Log.h
 
 CONFIG += c++11
 CONFIG -= qt
