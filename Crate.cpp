@@ -4,7 +4,7 @@
 #include "Include/glm/gtc/type_ptr.hpp"
 #include "Log.h"
 
-Crate::Crate(float x, float y, float z, float size, std::string const vertexShader, std::string const fragmentShader, std::string textureFile):
+Crate::Crate(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader, std::string const & textureFile):
     Cube(x, y, z, size, vertexShader, fragmentShader),
     texture_ {nullptr}
 {
@@ -35,7 +35,7 @@ Crate::Crate(float x, float y, float z, float size, std::string const vertexShad
     logger->trace(logger->get() << "Crate loaded");
 }
 
-Crate::Crate(int x, int y, int z, float size, std::string texture):
+Crate::Crate(int x, int y, int z, float size, std::string const & texture):
     Crate::Crate(x, y, z, size, "Shaders/texture.vert", "Shaders/texture.frag", texture)
 {
 }

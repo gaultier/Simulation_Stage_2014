@@ -30,7 +30,7 @@
 class GraphicObject
 {
 public:
-    GraphicObject(float x = 0, float y = 0, float z = 0, float size = 0, std::string vertexShader = "", std::string fragmentShader = "");
+    GraphicObject(float x = 0, float y = 0, float z = 0, float size = 0, std::string const & vertexShader = "", std::string const & fragmentShader = "");
 
     virtual ~GraphicObject();
 

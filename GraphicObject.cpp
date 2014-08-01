@@ -4,7 +4,7 @@
 #include <cstring>
 
 
-GraphicObject::GraphicObject(float x, float y, float z, float size, std::string vertexShader, std::string fragmentShader):
+GraphicObject::GraphicObject(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader):
     position_ {x, y, z},
     orientation_ {0, 0, 0},
     size_ {size},

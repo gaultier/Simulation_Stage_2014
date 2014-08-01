@@ -21,8 +21,8 @@
 class Crate: public Cube
 {
 public:
-    Crate(float x, float y, float z, float size, std::string const vertexShader, std::string const fragmentShader, std::string texture);
-    Crate(int x, int y, int z, float size, std::string texture);
+    Crate(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader, std::string const & texture);
+    Crate(int x, int y, int z, float size, std::string const & texture);
     virtual ~Crate();
     void draw(glm::mat4 &projection, glm::mat4 &modelview);
     void load();

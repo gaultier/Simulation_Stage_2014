@@ -20,7 +20,7 @@
 class Cube: public GraphicObject
 {
     public:
-      Cube(float x, float y, float z, float size, std::string const vertexShader, std::string const fragmentShader);
+      Cube(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader);
       Cube(int x, int y, int z, float size);
       virtual ~Cube();
       void draw(glm::mat4 &projection, glm::mat4 &modelview);

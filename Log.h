@@ -146,7 +146,7 @@ public:
         clear();
     }
 
-    void setLogFile(string logFileName)
+    void setLogFile(string const & logFileName)
     {
         logFileName_ = logFileName;
         logToFile_ = true;

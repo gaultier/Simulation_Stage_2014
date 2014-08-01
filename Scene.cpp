@@ -156,12 +156,13 @@ void Scene::initGObjects()
         int y = distribution(generator);
         int z = distribution(generator);
 
-        logger->trace(logger->get() << "Before generation of crate n°" << i);
-
+        auto startCrateGeneration = std::chrono::high_resolution_clock::now();
         gObjects_(x, y, z) = std::shared_ptr<Crate>(new Crate(x, y, z, 1.0, "Textures/photorealistic/photorealistic_marble/granit01.jpg"));
+        auto endCrateGeneration = std::chrono::high_resolution_clock::now();
 
         logger->debug(logger->get() << "Generated crate n°" << i << " at position ("
-                    << x << ", " << y << ", " << z << ")");
+                    << x << ", " << y << ", " << z << ") in "
+                    << chrono::duration_cast<std::chrono::milliseconds>(endCrateGeneration - startCrateGeneration).count() << " ms");
     }
     auto endGeneration = std::chrono::high_resolution_clock::now();
 

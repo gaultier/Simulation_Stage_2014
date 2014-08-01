@@ -6,7 +6,7 @@
 
 #include <algorithm>
 
-Cube::Cube(float x, float y, float z, float size, std::string const vertexShader, std::string const fragmentShader):
+Cube::Cube(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader):
     GraphicObject(x, y, z, size, vertexShader, fragmentShader)
 {
     logger->trace(logger->get() << "Cube constructor");
