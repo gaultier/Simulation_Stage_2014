@@ -29,7 +29,10 @@ Crate::Crate(float x, float y, float z, float size, std::string const vertexShad
 
                      0, 0,   1, 0,   1, 1,     // Face 6
                      0, 0,   0, 1,   1, 1};    // Face 6
+
+    logger->trace(logger->get() << "Before crate load");
     load();
+    logger->trace(logger->get() << "Crate loaded");
 }
 
 Crate::Crate(int x, int y, int z, float size, std::string texture):

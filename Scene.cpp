@@ -14,7 +14,7 @@
 #include <random>
 #include <chrono>
 
-std::unique_ptr<Logger> logger(new Logger("log.log", "log.err", true, Severity::info));
+std::unique_ptr<Logger> logger(new Logger("log.log", "log.err", true, Severity::trace));
 std::unique_ptr<NullOculus> nullOculus(new NullOculus);
 
 Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen):
@@ -155,6 +155,8 @@ void Scene::initGObjects()
         int x = distribution(generator);
         int y = distribution(generator);
         int z = distribution(generator);
+
+        logger->trace(logger->get() << "Before generation of crate n°" << i);
 
         gObjects_(x, y, z) = std::shared_ptr<Crate>(new Crate(x, y, z, 1.0, "Textures/photorealistic/photorealistic_marble/granit01.jpg"));
 

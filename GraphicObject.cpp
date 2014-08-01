@@ -12,10 +12,12 @@ GraphicObject::GraphicObject(float x, float y, float z, float size, std::string 
     VBOId_ {0},
     VAOId_ {0}
 {
+    logger->trace(logger->get() << "Graphic object constructor");
 }
 
 GraphicObject::~GraphicObject()
 {
+    logger->trace(logger->get() << "Graphic object destructor");
     if(glIsBuffer(VBOId_)  == GL_TRUE)
     {
         glDeleteBuffers(1, &VBOId_);

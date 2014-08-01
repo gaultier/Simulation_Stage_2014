@@ -2,12 +2,15 @@
 #include "Cube.h"
 #include "Include/glm/gtx/transform.hpp"
 #include "Include/glm/gtc/type_ptr.hpp"
+#include "Log.h"
 
 #include <algorithm>
 
 Cube::Cube(float x, float y, float z, float size, std::string const vertexShader, std::string const fragmentShader):
     GraphicObject(x, y, z, size, vertexShader, fragmentShader)
 {
+    logger->trace(logger->get() << "Cube constructor");
+
     shader_->load();
 
     //A B C D anti clockwise with A facing x axis +, E top, F bottom
