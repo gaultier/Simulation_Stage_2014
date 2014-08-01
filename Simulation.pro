@@ -320,7 +320,8 @@ LIBS += -lovr -lpthread -lX11 -ludev -lXinerama -lXrandr
 
 OTHER_FILES += \
     Include/OVR/LibOVR/Makefile \
-    Makefile
+    Makefile \
+    README.md
 
 
 QMAKE_CXXFLAGS += -Ofast -Wno-deprecated

@@ -12,6 +12,7 @@ of what you can do with the Oculus Rift.
 ##Install
 
 - Clone the repo
+- `git submodule init` and `git submodule update`
 - Update your graphic card drivers
 - Install the Oculus SDK 0.3.2 for your plateform (the files included are for the Linux Oculus SDK).
 - Install the SDL2 library
