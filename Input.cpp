@@ -148,6 +148,7 @@ void Input::capturePointer(bool capture) const
         SDL_SetRelativeMouseMode(SDL_FALSE);
     }
 }
+
 GenericOculus* Input::oculus() const
 {
     return oculus_.get();

@@ -312,6 +312,7 @@ HEADERS += \
     Include/OVR/3rdParty/TinyXml/tinyxml2.h
 
 CONFIG += c++11
+CONFIG -= qt
 
 #OpenGL
 LIBS += -lSDL2 -lGL -lGLU -lSDL2_image -lGLEW
@@ -323,5 +324,5 @@ OTHER_FILES += \
     Makefile
 
 
-QMAKE_CXXFLAGS += -O3
-QMAKE_LFLAGS -= -O1
+QMAKE_CXXFLAGS += -Ofast -Wno-deprecated
+QMAKE_LFLAGS += -Ofast

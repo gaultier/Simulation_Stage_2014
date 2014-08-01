@@ -44,7 +44,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
                                           glm::vec3(0, 0, 0), glm::vec3(0, 1, 0),
                                           0.5,
                                           0.5,
-                                          *input_)
+                                          *(input_.get()))
                                       );
 
     gObjects_.setEmptyValue(std::shared_ptr<NullGraphicObject>(new NullGraphicObject));
