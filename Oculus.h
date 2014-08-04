@@ -42,11 +42,11 @@ public:
 
     virtual void getInput() {}
 
-    virtual bool isMoving();
+    virtual bool isMoving() const;
 
     virtual bool isUsingDebugHmd();
 
-    glm::vec3 dAngles() const;
+    virtual glm::vec3 dAngles() const;
 };
 
 
@@ -208,7 +208,6 @@ public:
      * @details It compares the current angular position with the previous angular position
      * @return true if the Oculus Rift if moving, else false
      */
-    using GenericOculus::isMoving;
     bool isMoving() const
     {
         bool res = false;
@@ -434,6 +433,11 @@ protected:
         textureSize_.w = textureSizeLeft_.w + textureSizeRight_.w;
         textureSize_.h = (textureSizeLeft_.h > textureSizeRight_.h ? textureSizeLeft_.h : textureSizeRight_.h);
 
+    }
+
+    glm::vec3 dAngles() const
+    {
+        return dAngles_;
     }
 
     /**

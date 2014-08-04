@@ -10,8 +10,9 @@ NullOculus::~NullOculus()
     logger->trace(logger->get() << "Null oculus destructor");
 }
 
-bool GenericOculus::isMoving()
+bool GenericOculus::isMoving() const
 {
+    logger->debug(logger->get() << "Generic Oculus is not moving");
     return false;
 }
 

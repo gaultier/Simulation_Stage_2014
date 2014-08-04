@@ -101,9 +101,10 @@ void Camera::moveOrientation()
         }
         else
         {
+            logger->debug(logger->get() << "dAngle x: " << input_.oculus()->dAngles().x);
             float xRad = Utils::radToDegree(input_.oculus()->dAngles().x);
             float yRad = Utils::radToDegree(input_.oculus()->dAngles().y);
-            logger->debug(logger->get() << "Oculus is moving (debug): xRad = " << xRad << ", yRad = " << yRad);
+            logger->debug(logger->get() << "Oculus is moving (real): xRad = " << xRad << ", yRad = " << yRad);
 
             orientate( - xRad, - yRad);
         }
