@@ -16,6 +16,7 @@ int main(int argc, char** argv)
                 ("oculus,o", "Oculus mode")
                 ("fullscreen,f", "Fullscreen mode")
                 ("texture,t", po::value<std::string>()->default_value("Textures/photorealistic/photorealistic_marble/granit01.jpg"), "Set the texture used on the cubes")
+                ("number,n", po::value<unsigned long>()->default_value(1024), "Set the number of objects seen. Must be a power of 2")
                 ;
 
         po::variables_map vm;
@@ -28,7 +29,7 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        Scene scene("Simulation", WINDOW_WIDTH, WINDOW_HEIGHT, vm.count("oculus"), vm.count("fullscreen"), vm["texture"].as<std::string>());
+        Scene scene("Simulation", WINDOW_WIDTH, WINDOW_HEIGHT, vm.count("oculus"), vm.count("fullscreen"), vm["texture"].as<std::string>(), vm["number"].as<unsigned long>());
         scene.mainLoop();
     }
     catch(exception& e) {

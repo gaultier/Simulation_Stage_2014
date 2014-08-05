@@ -44,7 +44,7 @@ class Scene
 
 public:
 
-    Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName);
+    Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName, unsigned long objectsCount);
     ~Scene();
 
     /**
@@ -102,7 +102,7 @@ private:
     /**
      * @brief Number of graphical object present in the scene
      */
-    const int gObjectsCount_;
+    const unsigned long gObjectsCount_;
 
     /**
      * @brief Size of the edge of the cubic scene.

@@ -17,8 +17,8 @@
 std::unique_ptr<Logger> logger(new Logger("log.log", "log.err", true, Severity::error | Severity::info));
 std::unique_ptr<NullOculus> nullOculus(new NullOculus);
 
-Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName):
-    gObjectsCount_ {static_cast<int>(pow(2, 10))},
+Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName, unsigned long objectsCount):
+    gObjectsCount_ {objectsCount},
     size_ {128},
     //1 to only draw the octant the camera is in, 2 to draw the immediate neighbours, etc. Power of 2
     octantsDrawnCount_ {2},
@@ -151,7 +151,7 @@ void Scene::initGObjects()
 
     auto startGeneration = std::chrono::high_resolution_clock::now();
 
-    for(int i=1; i <= gObjectsCount_; i++)
+    for(ulong i=1; i <= gObjectsCount_; i++)
     {
         int x = distribution(generator);
         int y = distribution(generator);
