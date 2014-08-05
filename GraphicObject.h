@@ -126,7 +126,7 @@ public:
 
     void release() {}
 
-    void draw(glm::mat4 &projection, glm::mat4 &modelview) {}
+    void draw(glm::mat4 &, glm::mat4 &) {}
 };
 
 
