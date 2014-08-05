@@ -20,7 +20,6 @@ int main(int argc, char** argv)
                 ("size,s", po::value<int>()->default_value(128), "Set the size of the data cube. Must be a power of 2")
                 ("octantSize", po::value<int>()->default_value(8), "Set the size of an octant. Must be a power of 2")
                 ("octantDrawnCount,d", po::value<int>()->default_value(2), "Set the number of octant drawn count. 1 to only draw the octant the camera is currently in, 2 to draw the immediate neighbors, ...")
-
                 ;
 
         po::variables_map vm;
