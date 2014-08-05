@@ -17,7 +17,7 @@
 std::unique_ptr<Logger> logger(new Logger("log.log", "log.err", true, Severity::error | Severity::info));
 std::unique_ptr<NullOculus> nullOculus(new NullOculus);
 
-Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen):
+Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName):
     gObjectsCount_ {static_cast<int>(pow(2, 10))},
     size_ {128},
     //1 to only draw the octant the camera is in, 2 to draw the immediate neighbours, etc. Power of 2
@@ -31,7 +31,8 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
     fullscreen_ {fullscreen},
     oculusRender_ {oculusRender},
     fps_ {0},
-    frameCount_ {0}
+    frameCount_ {0},
+    textureName_ {textureName}
 {
     logger->trace(logger->get() << "Scene constructor");
 
@@ -157,7 +158,7 @@ void Scene::initGObjects()
         int z = distribution(generator);
 
         auto startCrateGeneration = std::chrono::high_resolution_clock::now();
-        gObjects_(x, y, z) = std::shared_ptr<Crate>(new Crate(x, y, z, 1.0, "Textures/photorealistic/photorealistic_marble/granit01.jpg"));
+        gObjects_(x, y, z) = std::shared_ptr<Crate>(new Crate(x, y, z, 1.0, textureName_));
         auto endCrateGeneration = std::chrono::high_resolution_clock::now();
 
         logger->debug(logger->get() << "Generated crate n°" << i << " at position ("

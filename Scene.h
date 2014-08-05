@@ -44,7 +44,7 @@ class Scene
 
 public:
 
-    Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen);
+    Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName);
     ~Scene();
 
     /**
@@ -185,6 +185,8 @@ private:
      * @details At 60 fps, the app can run for 1000 years without overflowing this number
      */
     unsigned long long frameCount_;
+
+    std::string textureName_;
 };
 
 
