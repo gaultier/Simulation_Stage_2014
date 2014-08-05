@@ -17,12 +17,12 @@
 std::unique_ptr<Logger> logger(new Logger("log.log", "log.err", true, Severity::error | Severity::info));
 std::unique_ptr<NullOculus> nullOculus(new NullOculus);
 
-Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName, unsigned long objectsCount):
+Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName, unsigned long objectsCount, int size, int octantSize, int  octantsDrawnCount):
     gObjectsCount_ {objectsCount},
-    size_ {128},
+    size_ {size},
     //1 to only draw the octant the camera is in, 2 to draw the immediate neighbours, etc. Power of 2
-    octantsDrawnCount_ {2},
-    octantSize_  {8},
+    octantsDrawnCount_ {octantsDrawnCount},
+    octantSize_  {octantSize},
     windowTitle_ {windowTitle},
     windowWidth_ {windowWidth},
     windowHeight_ {windowHeight},

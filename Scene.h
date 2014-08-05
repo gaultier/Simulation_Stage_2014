@@ -44,7 +44,7 @@ class Scene
 
 public:
 
-    Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName, unsigned long objectsCount);
+    Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName, unsigned long objectsCount, int size, int octantSize, int  octantsDrawnCount);
     ~Scene();
 
     /**
