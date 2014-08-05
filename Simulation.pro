@@ -317,6 +317,8 @@ CONFIG -= qt
 LIBS += -lSDL2 -lGL -lGLU -lSDL2_image -lGLEW
 #Oculus
 LIBS += -lovr -lpthread -lX11 -ludev -lXinerama -lXrandr
+#Boost
+LIBS += -lboost_program_options
 
 OTHER_FILES += \
     Include/OVR/LibOVR/Makefile \

@@ -18,7 +18,7 @@ CXXFLAGS      = -pipe -Ofast -Wno-deprecated -g -std=c++11 -Wall -W -fPIE $(DEFI
 INCPATH       = -I../Qt/5.3/gcc_64/mkspecs/linux-clang -I.
 LINK          = clang++
 LFLAGS        = -ccc-gcc-name g++ -Ofast -Wl,-rpath,/home/gaultier/Qt/5.3/gcc_64
-LIBS          = $(SUBLIBS) -lSDL2 -lGL -lGLU -lSDL2_image -lGLEW -lovr -lpthread -lX11 -ludev -lXinerama -lXrandr 
+LIBS          = $(SUBLIBS) -lSDL2 -lGL -lGLU -lSDL2_image -lGLEW -lovr -lpthread -lX11 -ludev -lXinerama -lXrandr -lboost_program_options 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /home/gaultier/Qt/5.3/gcc_64/bin/qmake
