@@ -9,6 +9,10 @@ Tested on Linux but should work on other plateforms too with little to no change
 This project is in no means a model to follow if you're developping an OpenGL application, but is rather a proof-of-concept and demonstration
 of what you can do with the Oculus Rift.
 
+##Screenshots
+![ornament](screenshots/ornament.png)
+![oculus](screenshots/oculus.png)
+
 ##Install
 
 - Clone the repo
