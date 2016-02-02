@@ -32,13 +32,13 @@ int main(int argc, char** argv)
     po::store(po::parse_command_line(argc, argv, desc), vm);
     po::notify(vm);
 
-    if(vm.count("help"))
+    if (vm.count("help"))
     {
       std::cout << desc << std::endl;
       return 0;
     }
 
-    if(vm.count("verbose")) spdlog::set_level(spdlog::level::debug);
+    if (vm.count("verbose")) spdlog::set_level(spdlog::level::debug);
 
     Scene scene("Simulation", WINDOW_WIDTH, WINDOW_HEIGHT,
     vm.count("oculus"),
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
     );
     scene.mainLoop();
   }
-  catch(exception& e) {
+  catch (exception& e) {
     cerr << "error: " << e.what() << "\n";
     return 1;
   }

@@ -15,12 +15,12 @@ Input::Input(Scene* scene):
   scene_ (scene),
   oculus_ {std::move(nullOculus)}
   {
-    for(int i=0; i< SDL_NUM_SCANCODES; i++)
+    for (int i=0; i< SDL_NUM_SCANCODES; i++)
     {
       keyboardKeys_[(SDL_Scancode) i] = KEY::UP;
     }
 
-    for(int i=1; i <= 7; i++)
+    for (int i=1; i <= 7; i++)
     {
       mouseKeys_[i] = KEY::UP;
     }
@@ -37,7 +37,7 @@ Input::Input(Scene* scene):
 
     while(SDL_PollEvent(&event_))
     {
-      switch(event_.type)
+      switch (event_.type)
       {
       case SDL_KEYDOWN:
         keyboardKeys_[event_.key.keysym.scancode] = KEY::DOWN;
@@ -65,7 +65,7 @@ Input::Input(Scene* scene):
         break;
 
       case SDL_WINDOWEVENT:
-        switch(event_.window.event)
+        switch (event_.window.event)
         {
         case SDL_WINDOWEVENT_CLOSE:
           isOver_ = true;
@@ -127,7 +127,7 @@ Input::Input(Scene* scene):
 
   void Input::showCursor(bool show) const
   {
-    if(show)
+    if (show)
     {
       SDL_ShowCursor(SDL_ENABLE);
     }
@@ -139,7 +139,7 @@ Input::Input(Scene* scene):
 
   void Input::capturePointer(bool capture) const
   {
-    if(capture)
+    if (capture)
     {
       SDL_SetRelativeMouseMode(SDL_TRUE);
     }

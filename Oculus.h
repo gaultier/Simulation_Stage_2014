@@ -87,7 +87,7 @@ public:
 
       hmd_ = ovrHmd_Create(0);
 
-      if(!hmd_)
+      if (!hmd_)
       {
         hmd_ = ovrHmd_CreateDebug(ovrHmd_DK1);
         usingDebugHmd_ = true;
@@ -209,7 +209,7 @@ public:
     bool isMoving() const
     {
       bool res = false;
-      for(int i=0; i < 3; i++)
+      for (int i=0; i < 3; i++)
       {
         res = res && Utils::isEqual(angles_[i], dAngles_[i]);
       }
@@ -238,7 +238,7 @@ public:
 
       sensorState_ = ovrHmd_GetSensorState(hmd_, frameTiming_.ScanoutMidpointSeconds);
 
-      if(sensorState_.StatusFlags & (ovrStatus_OrientationTracked	| ovrStatus_PositionTracked))
+      if (sensorState_.StatusFlags & (ovrStatus_OrientationTracked	| ovrStatus_PositionTracked))
       {
         ovrPosef pose = sensorState_.Predicted.Pose;
         OVR::Quatf quat = pose.Orientation;
@@ -360,7 +360,7 @@ public:
     {
       glDisable(GL_TEXTURE_2D);
       glEnable(GL_DEPTH_TEST);
-      if(multisampleEnabled_)
+      if (multisampleEnabled_)
       {
         glEnable(GL_MULTISAMPLE);
       }

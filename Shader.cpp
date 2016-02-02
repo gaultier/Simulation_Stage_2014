@@ -49,19 +49,19 @@ Shader::Shader() :
 
     bool Shader::load()
     {
-      if(glIsShader(vertexID_) == GL_TRUE)
+      if (glIsShader(vertexID_) == GL_TRUE)
       glDeleteShader(vertexID_);
 
-      if(glIsShader(fragmentID_) == GL_TRUE)
+      if (glIsShader(fragmentID_) == GL_TRUE)
       glDeleteShader(fragmentID_);
 
-      if(glIsProgram(programID_) == GL_TRUE)
+      if (glIsProgram(programID_) == GL_TRUE)
       glDeleteProgram(programID_);
 
-      if(!compile(vertexID_, GL_VERTEX_SHADER, vertexSource_))
+      if (!compile(vertexID_, GL_VERTEX_SHADER, vertexSource_))
       return false;
 
-      if(!compile(fragmentID_, GL_FRAGMENT_SHADER, fragmentSource_))
+      if (!compile(fragmentID_, GL_FRAGMENT_SHADER, fragmentSource_))
       return false;
 
       programID_ = glCreateProgram();
@@ -85,7 +85,7 @@ Shader::Shader() :
       GLint linkError(0);
       glGetProgramiv(programID_, GL_LINK_STATUS, &linkError);
 
-      if(linkError != GL_TRUE)
+      if (linkError != GL_TRUE)
       {
         GLint errorSize(0);
         glGetProgramiv(programID_, GL_INFO_LOG_LENGTH, &errorSize);
@@ -113,7 +113,7 @@ Shader::Shader() :
     {
       shader = glCreateShader(type);
 
-      if( ! shader)
+      if ( ! shader)
       {
         spdlog::get("console")->error() << "Shader type does not exist: " << type;
 
@@ -125,7 +125,7 @@ Shader::Shader() :
 
       // Test d'ouverture
 
-      if(!file)
+      if (!file)
       {
         spdlog::get("console")->error() << "Shader: cannot find the source file " << sourceFile;
 
@@ -153,7 +153,7 @@ Shader::Shader() :
       GLint compilationError(0);
       glGetShaderiv(shader, GL_COMPILE_STATUS, &compilationError);
 
-      if(compilationError != GL_TRUE)
+      if (compilationError != GL_TRUE)
       {
         GLint errorSize(0);
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &errorSize);

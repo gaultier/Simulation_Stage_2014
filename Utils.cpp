@@ -17,11 +17,11 @@ namespace Utils
 
   void GLGetError()
   {
-    for(GLenum currError = glGetError(); currError != GL_NO_ERROR; currError = glGetError())
+    for (GLenum currError = glGetError(); currError != GL_NO_ERROR; currError = glGetError())
     {
       std::string error("OpenGl error: ");
 
-      switch(currError)
+      switch (currError)
       {
       case GL_INVALID_ENUM:
         error += " GL_INVALID_ENUM ";
@@ -68,16 +68,16 @@ namespace Utils
   float clamp(float phi, float limit)
   {
     float res = phi;
-    if(res > limit)
+    if (res > limit)
     {
       res = limit;
     }
-    else if(res < -limit)
+    else if (res < -limit)
     {
       res = -limit;
     }
 
-    if(phi != res)
+    if (phi != res)
     {
       spdlog::get("console")->debug() << "Clamped the angle from " << phi << " to " << res;
     }
@@ -98,9 +98,9 @@ namespace Utils
   {
     glm::mat4 res;
 
-    for(int i=0; i<4; i++)
+    for (int i=0; i<4; i++)
     {
-      for(int j=0; j<4; j++)
+      for (int j=0; j<4; j++)
       {
         res[i][j] = mat.M[i][j];
       }
@@ -118,9 +118,9 @@ namespace Utils
   {
     std::string res;
 
-    for(int i=0; i<4; i++)
+    for (int i=0; i<4; i++)
     {
-      for(int j=0; j<4; j++)
+      for (int j=0; j<4; j++)
       {
         res += std::to_string(mat[i][j]) + " ";
       }
@@ -134,19 +134,19 @@ namespace Utils
   {
     glm::vec3 oldVec = vecToClamp;
 
-    for(int i=0; i<3; i++)
+    for (int i=0; i<3; i++)
     {
-      if(vecToClamp[i] > clampMax[i])
+      if (vecToClamp[i] > clampMax[i])
       {
         vecToClamp[i] = clampMax[i];
       }
-      else if(vecToClamp[i] < clampMin[i])
+      else if (vecToClamp[i] < clampMin[i])
       {
         vecToClamp[i] = clampMin[i];
       }
     }
 
-    if(oldVec != vecToClamp)
+    if (oldVec != vecToClamp)
     {
       spdlog::get("console")->debug() << "Clamped the vec3 from " << Utils::toString(oldVec)
       << " to " << Utils::toString(vecToClamp);

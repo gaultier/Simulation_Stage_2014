@@ -20,7 +20,7 @@ Texture::Texture(std::string const & file):
   {
     SDL_Surface *imageSDL = IMG_Load(file_.c_str());
 
-    if(imageSDL == 0)
+    if (imageSDL == 0)
     {
       spdlog::get("console")->error() << "Error loading texture " << file_ << ": " << SDL_GetError();
 
@@ -30,7 +30,7 @@ Texture::Texture(std::string const & file):
     SDL_FreeSurface(imageSDL);
 
     //Delete former texture
-    if(glIsTexture(id_) == GL_TRUE)
+    if (glIsTexture(id_) == GL_TRUE)
     glDeleteTextures(1, &id_);
 
     //Generate id
@@ -43,11 +43,11 @@ Texture::Texture(std::string const & file):
     GLenum internalFormat(0);
     GLenum format(0);
 
-    if(invertedImage->format->BytesPerPixel == 3)
+    if (invertedImage->format->BytesPerPixel == 3)
     {
       internalFormat = GL_RGB;
 
-      if(invertedImage->format->Rmask == 0xff)
+      if (invertedImage->format->Rmask == 0xff)
       {
         format = GL_RGB;
       }
@@ -56,11 +56,11 @@ Texture::Texture(std::string const & file):
         format = GL_BGR;
       }
     }
-    else if(invertedImage->format->BytesPerPixel == 4)
+    else if (invertedImage->format->BytesPerPixel == 4)
     {
       internalFormat = GL_RGBA;
 
-      if(invertedImage->format->Rmask == 0xff)
+      if (invertedImage->format->Rmask == 0xff)
       {
         format = GL_RGBA;
       }
@@ -112,9 +112,9 @@ Texture::Texture(std::string const & file):
     unsigned char* invertedPixels = (unsigned char*) invertedImage->pixels;
     int width = source->w * source->format->BytesPerPixel;
 
-    for(int i=0; i < source->h; i++)
+    for (int i=0; i < source->h; i++)
     {
-      for(int j=0; j < width; j++)
+      for (int j=0; j < width; j++)
       {
         int pos = width * i + j;
         int invertedPos = (width * (source->h - 1 - i)) + j;
@@ -148,9 +148,9 @@ Texture::Texture(std::string const & file):
   {
     spdlog::get("console")->debug() << "Looking for texture " << file;
 
-    for(auto & texture : TextureFactory::textures_)
+    for (auto & texture : TextureFactory::textures_)
     {
-      if(texture->file() == file)
+      if (texture->file() == file)
       {
         spdlog::get("console")->debug() << "Found texture: " << file;
         return texture;
@@ -169,7 +169,7 @@ Texture::Texture(std::string const & file):
   {
     std::string res = "Texture factory = ";
 
-    for(const auto & t : textures_)
+    for (const auto & t : textures_)
     {
       res += t->file() + ": " + std::to_string(t.use_count()) + "\n";
     }

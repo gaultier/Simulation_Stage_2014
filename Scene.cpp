@@ -55,7 +55,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
     assert(initGL());
     spdlog::get("console")->debug() << "OpenGL was initialized";
 
-    if(oculusRender_)
+    if (oculusRender_)
     {
       input_->setOculus(std::unique_ptr<GenericOculus>(new Oculus<Scene>(*this)));
       spdlog::get("console")->debug() << "Oculus view";
@@ -75,7 +75,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
 
   bool Scene::initWindow()
   {
-    if(SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
       spdlog::get("console")->error() << "Error opening the SDL : " << SDL_GetError();
       SDL_Quit();
@@ -93,14 +93,14 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
     Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
-    if(fullscreen_)
+    if (fullscreen_)
     {
       flags |= SDL_WINDOW_MAXIMIZED;
     }
 
     window_ = SDL_CreateWindow(windowTitle_.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth_, windowHeight_, flags);
 
-    if(window_ == nullptr)
+    if (window_ == nullptr)
     {
       spdlog::get("console")->error() << "Error creating the window: " << SDL_GetError();
       SDL_Quit();
@@ -111,7 +111,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
     //Context
     context_ = SDL_GL_CreateContext(window_);
 
-    if( ! context_)
+    if ( ! context_)
     {
       spdlog::get("console")->error() << "Error creating the OpenGl context: " << SDL_GetError();
       SDL_DestroyWindow(window_);
@@ -127,7 +127,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
   {
     glewExperimental = GL_TRUE;
     GLenum initGLEW( glewInit() );
-    if(initGLEW != GLEW_OK)
+    if (initGLEW != GLEW_OK)
     {
       spdlog::get("console")->error() << "Error opening GLEW : " << glewGetErrorString(initGLEW);
 
@@ -150,7 +150,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
 
     auto startGeneration = std::chrono::high_resolution_clock::now();
 
-    for(ulong i=1; i <= gObjectsCount_; i++)
+    for (ulong i=1; i <= gObjectsCount_; i++)
     {
       int x = distribution(generator);
       int y = distribution(generator);
@@ -184,10 +184,10 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
 
       input_->updateEvent();
 
-      if(input_->isKeyboardKeyDown(SDL_SCANCODE_ESCAPE))
+      if (input_->isKeyboardKeyDown(SDL_SCANCODE_ESCAPE))
       break;
 
-      if(oculusRender_)
+      if (oculusRender_)
       {
         input_->oculus()->render();
       }
@@ -199,7 +199,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
         render();
       }
 
-      if(!oculusRender_)
+      if (!oculusRender_)
       {
         SDL_GL_SwapWindow(window_);
       }
@@ -211,7 +211,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
 
       updateFPS(elapsedTime);
 
-      if(elapsedTime < frameRate)
+      if (elapsedTime < frameRate)
       {
         SDL_Delay(frameRate - elapsedTime);
       }
@@ -248,11 +248,11 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
     camera_->move(glm::vec3(sizeToRender + e, sizeToRender + e, sizeToRender + e) , glm::vec3(size_ - sizeToRender -e, size_ - sizeToRender -e, size_ - sizeToRender -e));
     camera_->lookAt(MV);
 
-    for(int z=camera_->position().z - sizeToRender; z<camera_->position().z + sizeToRender; z++)
+    for (int z=camera_->position().z - sizeToRender; z<camera_->position().z + sizeToRender; z++)
     {
-      for(int y=camera_->position().y - sizeToRender; y<camera_->position().y + sizeToRender; y++)
+      for (int y=camera_->position().y - sizeToRender; y<camera_->position().y + sizeToRender; y++)
       {
-        for(int x=camera_->position().x - sizeToRender; x<camera_->position().x + sizeToRender; x++)
+        for (int x=camera_->position().x - sizeToRender; x<camera_->position().x + sizeToRender; x++)
         {
           gObjects_.at(x, y, z)->draw(proj, MV);
         }

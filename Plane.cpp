@@ -58,7 +58,7 @@ Plane::Plane(float x, float y, float z, float width, float height, float repeatW
   void Plane::load()
   {
     //VBO
-    if(glIsBuffer(VBOId_) == GL_TRUE)
+    if (glIsBuffer(VBOId_) == GL_TRUE)
     {
       glDeleteBuffers(1, &VBOId_);
     }
@@ -73,7 +73,7 @@ Plane::Plane(float x, float y, float z, float width, float height, float repeatW
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     //VAO
-    if(glIsVertexArray(VAOId_) == GL_TRUE)
+    if (glIsVertexArray(VAOId_) == GL_TRUE)
     glDeleteVertexArrays(1, &VAOId_);
 
     glGenVertexArrays(1, &VAOId_);

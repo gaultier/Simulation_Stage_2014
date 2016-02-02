@@ -16,12 +16,12 @@ GraphicObject::GraphicObject(float x, float y, float z, float size, std::string 
 
   GraphicObject::~GraphicObject()
   {
-    if(glIsBuffer(VBOId_)  == GL_TRUE)
+    if (glIsBuffer(VBOId_)  == GL_TRUE)
     {
       glDeleteBuffers(1, &VBOId_);
     }
 
-    if(glIsVertexArray(VAOId_) == GL_TRUE)
+    if (glIsVertexArray(VAOId_) == GL_TRUE)
     {
       glDeleteVertexArrays(1, &VAOId_);
     }
@@ -48,7 +48,7 @@ GraphicObject::GraphicObject(float x, float y, float z, float size, std::string 
 
     void* VBOAdress = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 
-    if(VBOAdress == nullptr)
+    if (VBOAdress == nullptr)
     {
       spdlog::get("console")->error() << "Cannot get the VBO address";
 

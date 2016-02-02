@@ -48,19 +48,19 @@ Camera::Camera(glm::vec3 const & position, glm::vec3 const & eyeTarget, glm::vec
 
   void Camera::setOrientation(float phiRad, float thetaRad)
   {
-    if(verticalAxis_.x)
+    if (verticalAxis_.x)
     {
       orientation_.x = sin(phiRad);
       orientation_.y = cos(phiRad) * cos(thetaRad);
       orientation_.z = cos(phiRad) * sin(thetaRad);
     }
-    else if(verticalAxis_.y)
+    else if (verticalAxis_.y)
     {
       orientation_.x = cos(phiRad) * sin(thetaRad);
       orientation_.y = sin(phiRad);
       orientation_.z = cos(phiRad) * cos(thetaRad);
     }
-    else if(verticalAxis_.z)
+    else if (verticalAxis_.z)
     {
       orientation_.x = cos(phiRad) * cos(thetaRad);
       orientation_.y = cos(phiRad) * sin(thetaRad);
@@ -85,13 +85,13 @@ Camera::Camera(glm::vec3 const & position, glm::vec3 const & eyeTarget, glm::vec
   {
     glm::vec3 oldOrientation = orientation_;
 
-    if(input_.isMouseMoving())
+    if (input_.isMouseMoving())
     {
       orientate(input_.mouseXRel(), input_.mouseYRel());
     }
-    if(input_.oculus()->isMoving())
+    if (input_.oculus()->isMoving())
     {
-      if(input_.oculus()->isUsingDebugHmd())
+      if (input_.oculus()->isUsingDebugHmd())
       {
         float x = input_.mouseXRel();
         float y = input_.mouseYRel();
@@ -110,7 +110,7 @@ Camera::Camera(glm::vec3 const & position, glm::vec3 const & eyeTarget, glm::vec
       }
     }
 
-    if(oldOrientation != orientation_)
+    if (oldOrientation != orientation_)
     {
       spdlog::get("console")->debug() << "Move camera orientation from "
       << Utils::toString(oldOrientation) << " to " << Utils::toString(orientation_);
@@ -121,24 +121,24 @@ Camera::Camera(glm::vec3 const & position, glm::vec3 const & eyeTarget, glm::vec
   {
     glm::vec3 oldPosition = position_;
 
-    if(input_.isKeyboardKeyDown(SDL_SCANCODE_UP) || input_.isKeyboardKeyDown(SDL_SCANCODE_Z))
+    if (input_.isKeyboardKeyDown(SDL_SCANCODE_UP) || input_.isKeyboardKeyDown(SDL_SCANCODE_Z))
     {
       position_ += orientation_ * speed_;
     }
-    if(input_.isKeyboardKeyDown(SDL_SCANCODE_DOWN) || input_.isKeyboardKeyDown(SDL_SCANCODE_S))
+    if (input_.isKeyboardKeyDown(SDL_SCANCODE_DOWN) || input_.isKeyboardKeyDown(SDL_SCANCODE_S))
     {
       position_ += - orientation_ * speed_;
     }
-    if(input_.isKeyboardKeyDown(SDL_SCANCODE_LEFT) || input_.isKeyboardKeyDown(SDL_SCANCODE_Q))
+    if (input_.isKeyboardKeyDown(SDL_SCANCODE_LEFT) || input_.isKeyboardKeyDown(SDL_SCANCODE_Q))
     {
       position_ += lateralMove_ * speed_;
     }
-    if(input_.isKeyboardKeyDown(SDL_SCANCODE_RIGHT) || input_.isKeyboardKeyDown(SDL_SCANCODE_D))
+    if (input_.isKeyboardKeyDown(SDL_SCANCODE_RIGHT) || input_.isKeyboardKeyDown(SDL_SCANCODE_D))
     {
       position_ += - lateralMove_ * speed_;
     }
 
-    if(oldPosition != position_)
+    if (oldPosition != position_)
     {
 
       spdlog::get("console")->debug() << "Move camera position from "
@@ -158,22 +158,22 @@ Camera::Camera(glm::vec3 const & position, glm::vec3 const & eyeTarget, glm::vec
     orientation_ = eyeTarget_ - position_;
     orientation_ = glm::normalize(orientation_);
 
-    if(verticalAxis_.x)
+    if (verticalAxis_.x)
     {
       phi_ = asin(orientation_.x);
       theta_ = acos(orientation_.y / cos(phi_));
 
-      if(orientation_.y < 0)
+      if (orientation_.y < 0)
       {
         theta_ *= -1;
       }
     }
-    else if(verticalAxis_.y)
+    else if (verticalAxis_.y)
     {
       phi_ = asin(orientation_.y);
       theta_ = acos(orientation_.z / cos(phi_));
 
-      if(orientation_.z < 0)
+      if (orientation_.z < 0)
       {
         theta_ *= -1;
       }
@@ -183,7 +183,7 @@ Camera::Camera(glm::vec3 const & position, glm::vec3 const & eyeTarget, glm::vec
       phi_ = asin(orientation_.x);
       theta_ = acos(orientation_.z / cos(phi_));
 
-      if(orientation_.z < 0)
+      if (orientation_.z < 0)
       {
         theta_ *= -1;
       }
