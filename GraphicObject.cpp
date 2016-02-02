@@ -1,7 +1,7 @@
 #include "GraphicObject.h"
 #include "spdlog/include/spdlog/spdlog.h"
 
-#include <cstring>
+#include <cstring> // TODO: remove?
 
 
 GraphicObject::GraphicObject(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader):
@@ -48,7 +48,7 @@ GraphicObject::GraphicObject(float x, float y, float z, float size, std::string 
 
     void* VBOAdress = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 
-    if (VBOAdress == nullptr)
+    if (!VBOAdress)
     {
       spdlog::get("console")->error() << "Cannot get the VBO address";
 
@@ -56,7 +56,7 @@ GraphicObject::GraphicObject(float x, float y, float z, float size, std::string 
 
       return;
     }
-    memcpy((char*) VBOAdress + offset, data, bytesSize);
+    memcpy(static_cast<char*>(VBOAdress) + offset, data, bytesSize);
     glUnmapBuffer(GL_ARRAY_BUFFER);
     VBOAdress = 0;
 
