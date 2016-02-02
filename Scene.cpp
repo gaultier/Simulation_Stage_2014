@@ -100,7 +100,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
 
     window_ = SDL_CreateWindow(windowTitle_.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth_, windowHeight_, flags);
 
-    if (window_ == nullptr)
+    if (!window_)
     {
       spdlog::get("console")->error() << "Error creating the window: " << SDL_GetError();
       SDL_Quit();
@@ -199,12 +199,8 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
         render();
       }
 
-      if (!oculusRender_)
-      {
-        SDL_GL_SwapWindow(window_);
-      }
-
       SDL_GL_SwapWindow(window_);
+
       //Wait for FPS
       end = SDL_GetTicks();
       elapsedTime = end - start;
