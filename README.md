@@ -18,7 +18,7 @@ of what you can do with the Oculus Rift.
 - Install the SDL2 library
 - Install the SDL2 Image library
 - Install the Boost Program options library (tested with 1.55)
-- Make sure you have a c++11 compliant compiler (clang works fine).
+- Make sure you have a c++14 compliant compiler (clang or gcc work fine).
 - Build:
 
     ```sh
