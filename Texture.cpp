@@ -2,6 +2,8 @@
 #include "Utils.h"
 #include "spdlog/include/spdlog/spdlog.h"
 
+#include <algorithm>
+
 std::vector<std::shared_ptr<Texture>> TextureFactory::textures_;
 
 Texture::Texture(std::string const & file):
@@ -148,13 +150,15 @@ Texture::Texture(std::string const & file):
   {
     spdlog::get("console")->debug() << "Looking for texture " << file;
 
-    for (auto & texture : TextureFactory::textures_)
+    auto find_it = find_if(TextureFactory::textures_.begin(), TextureFactory::textures_.end(), [&file] (std::shared_ptr<Texture> const & t) -> bool {
+      return t->file() == file;
+    });
+
+    // Found
+    if (find_it != TextureFactory::textures_.end())
     {
-      if (texture->file() == file)
-      {
-        spdlog::get("console")->debug() << "Found texture: " << file;
-        return texture;
-      }
+      spdlog::get("console")->debug() << "Found texture: " << file;
+      return *find_it;
     }
 
     //Texture not found
