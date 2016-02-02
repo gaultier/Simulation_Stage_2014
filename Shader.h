@@ -2,11 +2,11 @@
 #define DEF_SHADER
 
 /** @file
- * @brief Shader management
- * @author Philippe Gaultier
- * @version 1.0
- * @date 24/07/14
- */
+* @brief Shader management
+* @author Philippe Gaultier
+* @version 1.0
+* @date 24/07/14
+*/
 
 // Include Windows
 
@@ -34,70 +34,70 @@
 #include <fstream>
 
 /**
- * @brief The Shader class
- * @details Manages the shader resources
- */
+* @brief The Shader class
+* @details Manages the shader resources
+*/
 class Shader
 {
-    public:
+public:
 
-    Shader();
-    Shader(Shader const &copy);
-    Shader(std::string const & vertexSource, std::string const & fragmentSource);
-    ~Shader();
+  Shader();
+  Shader(Shader const &copy);
+  Shader(std::string const & vertexSource, std::string const & fragmentSource);
+  ~Shader();
 
-    Shader& operator=(Shader const &copy);
+  Shader& operator=(Shader const &copy);
 
-    /**
-     * @brief Reads the shader source files, compiles them and links them
-     * @return true if it was successful, else false
-     */
-    bool load();
+  /**
+  * @brief Reads the shader source files, compiles them and links them
+  * @return true if it was successful, else false
+  */
+  bool load();
 
-    /**
-     * @brief Reads the shader source file and compiles it
-     * @details Works on vertex and fragment shaders
-     * @param shader The OpenGL shader id
-     * @param type Shader type: vertex or fragment
-     * @param fileSource The shader source file
-     * @return
-     */
-    bool compile(GLuint &shader, GLenum type, std::string const &fileSource);
+  /**
+  * @brief Reads the shader source file and compiles it
+  * @details Works on vertex and fragment shaders
+  * @param shader The OpenGL shader id
+  * @param type Shader type: vertex or fragment
+  * @param fileSource The shader source file
+  * @return
+  */
+  bool compile(GLuint &shader, GLenum type, std::string const &fileSource);
 
-    GLuint programID() const;
-    void setProgramID(const GLuint &programID);
+  GLuint programID() const;
+  void setProgramID(const GLuint &programID);
 
-    std::string vertexSource() const;
-    void setVertexSource(const std::string& vertexSource);
+  std::string vertexSource() const;
+  void setVertexSource(const std::string& vertexSource);
 
-    std::string fragmentSource() const;
-    void setFragmentSource(const std::string& fragmentSource);
+  std::string fragmentSource() const;
+  void setFragmentSource(const std::string& fragmentSource);
 
 private:
-    /**
-     * @brief The OpenGL vertex shader id
-     */
-    GLuint vertexID_;
+  /**
+  * @brief The OpenGL vertex shader id
+  */
+  GLuint vertexID_;
 
-    /**
-     * @brief The OpenGL fragment shader id
-     */
-    GLuint fragmentID_;
+  /**
+  * @brief The OpenGL fragment shader id
+  */
+  GLuint fragmentID_;
 
-    /**
-     * @brief The OpenGL program id resulting from the fusion of the vertex and fragment shaders
-     */
-    GLuint programID_;
+  /**
+  * @brief The OpenGL program id resulting from the fusion of the vertex and fragment shaders
+  */
+  GLuint programID_;
 
-    /**
-     * @brief The vertex shader source file
-     */
-    std::string vertexSource_;
+  /**
+  * @brief The vertex shader source file
+  */
+  std::string vertexSource_;
 
-    /**
-     * @brief The fragment shader source file
-     */
-    std::string fragmentSource_;
+  /**
+  * @brief The fragment shader source file
+  */
+  std::string fragmentSource_;
 };
 
 #endif

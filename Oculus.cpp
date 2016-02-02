@@ -10,16 +10,16 @@ NullOculus::~NullOculus()
 
 bool GenericOculus::isMoving() const
 {
-    spdlog::get("console")->debug() << "Generic Oculus is not moving";
-    return false;
+  spdlog::get("console")->debug() << "Generic Oculus is not moving";
+  return false;
 }
 
 bool GenericOculus::isUsingDebugHmd()
 {
-    return true;
+  return true;
 }
 
 glm::vec3 GenericOculus::dAngles() const
 {
-    return glm::vec3(0, 0, 0);
+  return glm::vec3(0, 0, 0);
 }

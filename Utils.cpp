@@ -8,152 +8,152 @@
 
 namespace Utils
 {
-int logsCount = 0;
+  int logsCount = 0;
 
-void resizeWindow(int w, int h)
-{
+  void resizeWindow(int w, int h)
+  {
     glViewport(0, 0, w, h);
-}
+  }
 
-void GLGetError()
-{
+  void GLGetError()
+  {
     for(GLenum currError = glGetError(); currError != GL_NO_ERROR; currError = glGetError())
     {
-        std::string error("OpenGl error: ");
+      std::string error("OpenGl error: ");
 
-        switch(currError)
-        {
-        case GL_INVALID_ENUM:
-            error += " GL_INVALID_ENUM ";
-            break;
-        case GL_INVALID_VALUE:
-            error += " GL_INVALID_VALUE ";
-            break;
-        case GL_INVALID_OPERATION:
-            error += " GL_INVALID_OPERATION ";
-            break;
-        case GL_STACK_OVERFLOW:
-            error += " GL_STACK_OVERFLOW ";
-            break;
-        case GL_STACK_UNDERFLOW:
-            error += " GL_STACK_UNDERFLOW ";
-            break;
-        case GL_OUT_OF_MEMORY:
-            error += " GL_OUT_OF_MEMORY ";
-            break;
-        case GL_INVALID_FRAMEBUFFER_OPERATION:
-            error += " GL_INVALID_FRAMEBUFFER_OPERATION ";
-            break;
-        case GL_TABLE_TOO_LARGE:
-            error += " GL_TABLE_TOO_LARGE ";
-            break;
-        default:
-            error += "Unknown error";
-            break;
-        }
-        spdlog::get("console")->error() << error;
+      switch(currError)
+      {
+      case GL_INVALID_ENUM:
+        error += " GL_INVALID_ENUM ";
+        break;
+      case GL_INVALID_VALUE:
+        error += " GL_INVALID_VALUE ";
+        break;
+      case GL_INVALID_OPERATION:
+        error += " GL_INVALID_OPERATION ";
+        break;
+      case GL_STACK_OVERFLOW:
+        error += " GL_STACK_OVERFLOW ";
+        break;
+      case GL_STACK_UNDERFLOW:
+        error += " GL_STACK_UNDERFLOW ";
+        break;
+      case GL_OUT_OF_MEMORY:
+        error += " GL_OUT_OF_MEMORY ";
+        break;
+      case GL_INVALID_FRAMEBUFFER_OPERATION:
+        error += " GL_INVALID_FRAMEBUFFER_OPERATION ";
+        break;
+      case GL_TABLE_TOO_LARGE:
+        error += " GL_TABLE_TOO_LARGE ";
+        break;
+      default:
+        error += "Unknown error";
+        break;
+      }
+      spdlog::get("console")->error() << error;
     }
-}
+  }
 
-float degreeToRad(float value)
-{
+  float degreeToRad(float value)
+  {
     return value * M_PI / 180;
-}
+  }
 
-float radToDegree(float value)
-{
+  float radToDegree(float value)
+  {
     return 180 * value / M_PI;
-}
+  }
 
-float clamp(float phi, float limit)
-{
+  float clamp(float phi, float limit)
+  {
     float res = phi;
     if(res > limit)
     {
-        res = limit;
+      res = limit;
     }
     else if(res < -limit)
     {
-        res = -limit;
+      res = -limit;
     }
 
     if(phi != res)
     {
-        spdlog::get("console")->debug() << "Clamped the angle from " << phi << " to " << res;
+      spdlog::get("console")->debug() << "Clamped the angle from " << phi << " to " << res;
     }
     else
     {
-        spdlog::get("console")->debug() << "No need to clamp the angle";
+      spdlog::get("console")->debug() << "No need to clamp the angle";
     }
 
     return res;
-}
+  }
 
-float isEqual(float a, float b)
-{
+  float isEqual(float a, float b)
+  {
     return (fabs(a - b) < std::numeric_limits<double>::epsilon());
-}
+  }
 
-glm::mat4 ovr2glmMat(OVR::Matrix4f const & mat)
-{
+  glm::mat4 ovr2glmMat(OVR::Matrix4f const & mat)
+  {
     glm::mat4 res;
 
     for(int i=0; i<4; i++)
     {
-        for(int j=0; j<4; j++)
-        {
-            res[i][j] = mat.M[i][j];
-        }
+      for(int j=0; j<4; j++)
+      {
+        res[i][j] = mat.M[i][j];
+      }
     }
 
     return res;
-}
+  }
 
-std::string toString(glm::vec3 const & vec)
-{
+  std::string toString(glm::vec3 const & vec)
+  {
     return "(" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + ")";
-}
+  }
 
-std::string toString(glm::mat4 const & mat)
-{
+  std::string toString(glm::mat4 const & mat)
+  {
     std::string res;
 
     for(int i=0; i<4; i++)
     {
-        for(int j=0; j<4; j++)
-        {
-            res += std::to_string(mat[i][j]) + " ";
-        }
-        res += "\n";
+      for(int j=0; j<4; j++)
+      {
+        res += std::to_string(mat[i][j]) + " ";
+      }
+      res += "\n";
     }
 
     return res;
-}
+  }
 
-void clamp(glm::vec3 & vecToClamp, glm::vec3 const & clampMin, glm::vec3 const & clampMax)
-{
+  void clamp(glm::vec3 & vecToClamp, glm::vec3 const & clampMin, glm::vec3 const & clampMax)
+  {
     glm::vec3 oldVec = vecToClamp;
 
     for(int i=0; i<3; i++)
     {
-        if(vecToClamp[i] > clampMax[i])
-        {
-            vecToClamp[i] = clampMax[i];
-        }
-        else if(vecToClamp[i] < clampMin[i])
-        {
-            vecToClamp[i] = clampMin[i];
-        }
+      if(vecToClamp[i] > clampMax[i])
+      {
+        vecToClamp[i] = clampMax[i];
+      }
+      else if(vecToClamp[i] < clampMin[i])
+      {
+        vecToClamp[i] = clampMin[i];
+      }
     }
 
     if(oldVec != vecToClamp)
     {
-        spdlog::get("console")->debug() << "Clamped the vec3 from " << Utils::toString(oldVec)
-                                  << " to " << Utils::toString(vecToClamp);
+      spdlog::get("console")->debug() << "Clamped the vec3 from " << Utils::toString(oldVec)
+      << " to " << Utils::toString(vecToClamp);
     }
     else
     {
-        spdlog::get("console")->debug() << "No need to clamp the vector";
+      spdlog::get("console")->debug() << "No need to clamp the vector";
     }
-}
+  }
 }

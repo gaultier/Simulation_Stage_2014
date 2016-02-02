@@ -19,33 +19,33 @@ using namespace std;
 std::unique_ptr<NullOculus> nullOculus(new NullOculus);
 
 Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName, unsigned long objectsCount, int size, int octantSize, int  octantsDrawnCount):
-    gObjectsCount_ {objectsCount},
-    size_ {size},
-    //1 to only draw the octant the camera is in, 2 to draw the immediate neighbours, etc. Power of 2
-    octantsDrawnCount_ {octantsDrawnCount},
-    octantSize_  {octantSize},
-    windowTitle_ {windowTitle},
-    windowWidth_ {windowWidth},
-    windowHeight_ {windowHeight},
-    window_ {nullptr},
-    gObjects_ {size_},
-    fullscreen_ {fullscreen},
-    oculusRender_ {oculusRender},
-    fps_ {0},
-    frameCount_ {0},
-    textureName_ {textureName}
-{
+  gObjectsCount_ {objectsCount},
+  size_ {size},
+  //1 to only draw the octant the camera is in, 2 to draw the immediate neighbours, etc. Power of 2
+  octantsDrawnCount_ {octantsDrawnCount},
+  octantSize_  {octantSize},
+  windowTitle_ {windowTitle},
+  windowWidth_ {windowWidth},
+  windowHeight_ {windowHeight},
+  window_ {nullptr},
+  gObjects_ {size_},
+  fullscreen_ {fullscreen},
+  oculusRender_ {oculusRender},
+  fps_ {0},
+  frameCount_ {0},
+  textureName_ {textureName}
+  {
     input_ = std::unique_ptr<Input>(new Input(this));
     input_->showCursor(false);
     input_->capturePointer(true);
 
     camera_ = std::unique_ptr<Camera>(new Camera(
-                                          glm::vec3(size_/2, size_/2, size_/2),
-                                          glm::vec3(0, 0, 0), glm::vec3(0, 1, 0),
-                                          0.5,
-                                          0.2,
-                                          *(input_.get()))
-                                      );
+    glm::vec3(size_/2, size_/2, size_/2),
+    glm::vec3(0, 0, 0), glm::vec3(0, 1, 0),
+    0.5,
+    0.2,
+    *(input_.get()))
+    );
 
     gObjects_.setEmptyValue(std::shared_ptr<NullGraphicObject>(new NullGraphicObject));
 
@@ -57,30 +57,30 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
 
     if(oculusRender_)
     {
-        input_->setOculus(std::unique_ptr<GenericOculus>(new Oculus<Scene>(*this)));
-        spdlog::get("console")->debug() << "Oculus view";
+      input_->setOculus(std::unique_ptr<GenericOculus>(new Oculus<Scene>(*this)));
+      spdlog::get("console")->debug() << "Oculus view";
     }
 
     initGObjects();
-}
+  }
 
-Scene::~Scene()
-{
+  Scene::~Scene()
+  {
     TextureFactory::destroyTextures();
 
     SDL_GL_DeleteContext(context_);
     SDL_DestroyWindow(window_);
     SDL_Quit();
-}
+  }
 
-bool Scene::initWindow()
-{
+  bool Scene::initWindow()
+  {
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-        spdlog::get("console")->error() << "Error opening the SDL : " << SDL_GetError();
-        SDL_Quit();
+      spdlog::get("console")->error() << "Error opening the SDL : " << SDL_GetError();
+      SDL_Quit();
 
-        return false;
+      return false;
     }
 
     //Version
@@ -95,17 +95,17 @@ bool Scene::initWindow()
     Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
     if(fullscreen_)
     {
-        flags |= SDL_WINDOW_MAXIMIZED;
+      flags |= SDL_WINDOW_MAXIMIZED;
     }
 
     window_ = SDL_CreateWindow(windowTitle_.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth_, windowHeight_, flags);
 
     if(window_ == nullptr)
     {
-        spdlog::get("console")->error() << "Error creating the window: " << SDL_GetError();
-        SDL_Quit();
+      spdlog::get("console")->error() << "Error creating the window: " << SDL_GetError();
+      SDL_Quit();
 
-        return -1;
+      return -1;
     }
 
     //Context
@@ -113,38 +113,38 @@ bool Scene::initWindow()
 
     if( ! context_)
     {
-        spdlog::get("console")->error() << "Error creating the OpenGl context: " << SDL_GetError();
-        SDL_DestroyWindow(window_);
-        SDL_Quit();
+      spdlog::get("console")->error() << "Error creating the OpenGl context: " << SDL_GetError();
+      SDL_DestroyWindow(window_);
+      SDL_Quit();
 
-        return false;
+      return false;
     }
 
     return true;
-}
+  }
 
-bool Scene::initGL()
-{
+  bool Scene::initGL()
+  {
     glewExperimental = GL_TRUE;
     GLenum initGLEW( glewInit() );
     if(initGLEW != GLEW_OK)
     {
-        spdlog::get("console")->error() << "Error opening GLEW : " << glewGetErrorString(initGLEW);
+      spdlog::get("console")->error() << "Error opening GLEW : " << glewGetErrorString(initGLEW);
 
-        SDL_GL_DeleteContext(context_);
-        SDL_DestroyWindow(window_);
-        SDL_Quit();
+      SDL_GL_DeleteContext(context_);
+      SDL_DestroyWindow(window_);
+      SDL_Quit();
 
-        return false;
+      return false;
     }
 
     glEnable(GL_DEPTH_TEST);
 
     return true;
-}
+  }
 
-void Scene::initGObjects()
-{
+  void Scene::initGObjects()
+  {
     std::default_random_engine generator;
     std::uniform_int_distribution<> distribution(0, size_ - 1);
 
@@ -152,26 +152,26 @@ void Scene::initGObjects()
 
     for(ulong i=1; i <= gObjectsCount_; i++)
     {
-        int x = distribution(generator);
-        int y = distribution(generator);
-        int z = distribution(generator);
+      int x = distribution(generator);
+      int y = distribution(generator);
+      int z = distribution(generator);
 
-        auto startCrateGeneration = std::chrono::high_resolution_clock::now();
-        gObjects_(x, y, z) = std::shared_ptr<Crate>(new Crate(x, y, z, 1.0, textureName_));
-        auto endCrateGeneration = std::chrono::high_resolution_clock::now();
+      auto startCrateGeneration = std::chrono::high_resolution_clock::now();
+      gObjects_(x, y, z) = std::shared_ptr<Crate>(new Crate(x, y, z, 1.0, textureName_));
+      auto endCrateGeneration = std::chrono::high_resolution_clock::now();
 
-        spdlog::get("console")->debug() << "Generated crate n°" << i << " at position ("
-                    << x << ", " << y << ", " << z << ") in "
-                    << chrono::duration_cast<std::chrono::milliseconds>(endCrateGeneration - startCrateGeneration).count() << " ms";
+      spdlog::get("console")->debug() << "Generated crate n°" << i << " at position ("
+      << x << ", " << y << ", " << z << ") in "
+      << chrono::duration_cast<std::chrono::milliseconds>(endCrateGeneration - startCrateGeneration).count() << " ms";
     }
     auto endGeneration = std::chrono::high_resolution_clock::now();
     auto generationTime = std::chrono::duration_cast<std::chrono::milliseconds>(endGeneration - startGeneration).count();
 
     spdlog::get("console")->info() << "Summary: the generation of " << gObjectsCount_ << " graphic objects took " << generationTime << " ms";
-}
+  }
 
-void Scene::mainLoop()
-{
+  void Scene::mainLoop()
+  {
     int fpsDesired = 60;
     unsigned int frameRate = 1000 / fpsDesired;
     Uint32 start (0);
@@ -180,55 +180,55 @@ void Scene::mainLoop()
 
     while( ! input_->isOver())
     {
-        start = SDL_GetTicks();
+      start = SDL_GetTicks();
 
-        input_->updateEvent();
+      input_->updateEvent();
 
-        if(input_->isKeyboardKeyDown(SDL_SCANCODE_ESCAPE))
-            break;
+      if(input_->isKeyboardKeyDown(SDL_SCANCODE_ESCAPE))
+      break;
 
-        if(oculusRender_)
-        {
-            input_->oculus()->render();
-        }
-        else
-        {
-            glClearColor(0, 0, 0, 1);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      if(oculusRender_)
+      {
+        input_->oculus()->render();
+      }
+      else
+      {
+        glClearColor(0, 0, 0, 1);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            render();
-        }
+        render();
+      }
 
-        if(!oculusRender_)
-        {
-            SDL_GL_SwapWindow(window_);
-        }
-
+      if(!oculusRender_)
+      {
         SDL_GL_SwapWindow(window_);
-        //Wait for FPS
-        end = SDL_GetTicks();
-        elapsedTime = end - start;
+      }
 
-        updateFPS(elapsedTime);
+      SDL_GL_SwapWindow(window_);
+      //Wait for FPS
+      end = SDL_GetTicks();
+      elapsedTime = end - start;
 
-        if(elapsedTime < frameRate)
-        {
-            SDL_Delay(frameRate - elapsedTime);
-        }
+      updateFPS(elapsedTime);
 
-        frameCount_++;
+      if(elapsedTime < frameRate)
+      {
+        SDL_Delay(frameRate - elapsedTime);
+      }
+
+      frameCount_++;
     }
 
     doEnd();
-}
+  }
 
-void Scene::doEnd()
-{
+  void Scene::doEnd()
+  {
     spdlog::get("console")->info() << "Mean fps: " << fps_;
-}
+  }
 
-void Scene::render()
-{
+  void Scene::render()
+  {
     glm::mat4 projection;
     glm::mat4 modelview;
 
@@ -238,10 +238,10 @@ void Scene::render()
     modelview = glm::mat4(2.0);
 
     Scene::render(modelview, projection);
-}
+  }
 
-void Scene::render(glm::mat4 & MV, glm::mat4 & proj)
-{
+  void Scene::render(glm::mat4 & MV, glm::mat4 & proj)
+  {
     int sizeToRender = octantSize_ * octantsDrawnCount_;
 
     double e = std::numeric_limits<double>::epsilon();
@@ -250,42 +250,42 @@ void Scene::render(glm::mat4 & MV, glm::mat4 & proj)
 
     for(int z=camera_->position().z - sizeToRender; z<camera_->position().z + sizeToRender; z++)
     {
-        for(int y=camera_->position().y - sizeToRender; y<camera_->position().y + sizeToRender; y++)
+      for(int y=camera_->position().y - sizeToRender; y<camera_->position().y + sizeToRender; y++)
+      {
+        for(int x=camera_->position().x - sizeToRender; x<camera_->position().x + sizeToRender; x++)
         {
-            for(int x=camera_->position().x - sizeToRender; x<camera_->position().x + sizeToRender; x++)
-            {
-                gObjects_.at(x, y, z)->draw(proj, MV);
-            }
+          gObjects_.at(x, y, z)->draw(proj, MV);
         }
+      }
     }
-}
+  }
 
-SDL_Window* Scene::window() const
-{
+  SDL_Window* Scene::window() const
+  {
     return window_;
-}
+  }
 
-int Scene::windowWidth() const
-{
+  int Scene::windowWidth() const
+  {
     return windowWidth_;
-}
+  }
 
-void Scene::setWindowWidth(int windowWidth)
-{
+  void Scene::setWindowWidth(int windowWidth)
+  {
     windowWidth_ = windowWidth;
-}
-int Scene::windowHeight() const
-{
+  }
+  int Scene::windowHeight() const
+  {
     return windowHeight_;
-}
+  }
 
-void Scene::setWindowHeight(int windowHeight)
-{
+  void Scene::setWindowHeight(int windowHeight)
+  {
     windowHeight_ = windowHeight;
-}
+  }
 
-void Scene::updateFPS(int elapsedTime)
-{
+  void Scene::updateFPS(int elapsedTime)
+  {
     //Avoid dividing by zero
     elapsedTime == 0 ? elapsedTime = 1 : elapsedTime;
     int newFps = 1000 / elapsedTime;
@@ -298,4 +298,4 @@ void Scene::updateFPS(int elapsedTime)
 
     std::string newTitle = windowTitle_ + " (" + std::to_string(newFps) + "FPS)";
     SDL_SetWindowTitle(window_, newTitle.c_str());
-}
+  }

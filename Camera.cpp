@@ -8,26 +8,26 @@
 #include <cmath>
 
 Camera::Camera(glm::vec3 const & position, glm::vec3 const & eyeTarget, glm::vec3 const & verticalAxis, float sensibility, float speed, Input const & input):
-    input_ {input},
-    phi_ {0},
-    theta_ {0},
-    orientation_ {0},
-    verticalAxis_ {verticalAxis},
-    lateralMove_ {0, 0, 0},
-    position_ {position},
-    eyeTarget_ {eyeTarget},
-    sensibility_ {sensibility},
-    speed_ {speed}
-{
+  input_ {input},
+  phi_ {0},
+  theta_ {0},
+  orientation_ {0},
+  verticalAxis_ {verticalAxis},
+  lateralMove_ {0, 0, 0},
+  position_ {position},
+  eyeTarget_ {eyeTarget},
+  sensibility_ {sensibility},
+  speed_ {speed}
+  {
     setEyeTarget();
-}
+  }
 
-Camera::~Camera()
-{
-}
+  Camera::~Camera()
+  {
+  }
 
-void Camera::orientate(float xRel, float yRel)
-{
+  void Camera::orientate(float xRel, float yRel)
+  {
     spdlog::get("console")->debug() << "Orientate: xRel = " << xRel << ", yRel = " << yRel;
 
     phi_ += - yRel * sensibility_;
@@ -44,221 +44,221 @@ void Camera::orientate(float xRel, float yRel)
     lateralMove_ = glm::normalize(lateralMove_);
 
     updateEyeTarget();
-}
+  }
 
-void Camera::setOrientation(float phiRad, float thetaRad)
-{
+  void Camera::setOrientation(float phiRad, float thetaRad)
+  {
     if(verticalAxis_.x)
     {
-        orientation_.x = sin(phiRad);
-        orientation_.y = cos(phiRad) * cos(thetaRad);
-        orientation_.z = cos(phiRad) * sin(thetaRad);
+      orientation_.x = sin(phiRad);
+      orientation_.y = cos(phiRad) * cos(thetaRad);
+      orientation_.z = cos(phiRad) * sin(thetaRad);
     }
     else if(verticalAxis_.y)
     {
-        orientation_.x = cos(phiRad) * sin(thetaRad);
-        orientation_.y = sin(phiRad);
-        orientation_.z = cos(phiRad) * cos(thetaRad);
+      orientation_.x = cos(phiRad) * sin(thetaRad);
+      orientation_.y = sin(phiRad);
+      orientation_.z = cos(phiRad) * cos(thetaRad);
     }
     else if(verticalAxis_.z)
     {
-        orientation_.x = cos(phiRad) * cos(thetaRad);
-        orientation_.y = cos(phiRad) * sin(thetaRad);
-        orientation_.z = sin(phiRad);
+      orientation_.x = cos(phiRad) * cos(thetaRad);
+      orientation_.y = cos(phiRad) * sin(thetaRad);
+      orientation_.z = sin(phiRad);
     }
-}
-const Input& Camera::input() const
-{
+  }
+  const Input& Camera::input() const
+  {
     return input_;
-}
+  }
 
-void Camera::move(glm::vec3 const & clampMin, glm::vec3 const & clampMax)
-{
+  void Camera::move(glm::vec3 const & clampMin, glm::vec3 const & clampMax)
+  {
     movePosition();
     Utils::clamp(position_, clampMin, clampMax);
     moveOrientation();
 
     updateEyeTarget();
-}
+  }
 
-void Camera::moveOrientation()
-{
+  void Camera::moveOrientation()
+  {
     glm::vec3 oldOrientation = orientation_;
 
     if(input_.isMouseMoving())
     {
-        orientate(input_.mouseXRel(), input_.mouseYRel());
+      orientate(input_.mouseXRel(), input_.mouseYRel());
     }
     if(input_.oculus()->isMoving())
     {
-        if(input_.oculus()->isUsingDebugHmd())
-        {
-            float x = input_.mouseXRel();
-            float y = input_.mouseYRel();
-            spdlog::get("console")->debug() << "Oculus is moving (debug): x = " << x << ", y = " << y;
+      if(input_.oculus()->isUsingDebugHmd())
+      {
+        float x = input_.mouseXRel();
+        float y = input_.mouseYRel();
+        spdlog::get("console")->debug() << "Oculus is moving (debug): x = " << x << ", y = " << y;
 
-            orientate(x, y);
-        }
-        else
-        {
-            spdlog::get("console")->debug() << "dAngle x: " << input_.oculus()->dAngles().x;
-            float xRad = Utils::radToDegree(input_.oculus()->dAngles().x);
-            float yRad = Utils::radToDegree(input_.oculus()->dAngles().y);
-            spdlog::get("console")->info()  << "Oculus is moving (real): xRad = " << xRad << ", yRad = " << yRad;
+        orientate(x, y);
+      }
+      else
+      {
+        spdlog::get("console")->debug() << "dAngle x: " << input_.oculus()->dAngles().x;
+        float xRad = Utils::radToDegree(input_.oculus()->dAngles().x);
+        float yRad = Utils::radToDegree(input_.oculus()->dAngles().y);
+        spdlog::get("console")->info()  << "Oculus is moving (real): xRad = " << xRad << ", yRad = " << yRad;
 
-            orientate( - xRad, - yRad);
-        }
+        orientate( - xRad, - yRad);
+      }
     }
 
     if(oldOrientation != orientation_)
     {
-        spdlog::get("console")->debug() << "Move camera orientation from "
-                    << Utils::toString(oldOrientation) << " to " << Utils::toString(orientation_);
+      spdlog::get("console")->debug() << "Move camera orientation from "
+      << Utils::toString(oldOrientation) << " to " << Utils::toString(orientation_);
     }
-}
+  }
 
-void Camera::movePosition()
-{
+  void Camera::movePosition()
+  {
     glm::vec3 oldPosition = position_;
 
     if(input_.isKeyboardKeyDown(SDL_SCANCODE_UP) || input_.isKeyboardKeyDown(SDL_SCANCODE_Z))
     {
-        position_ += orientation_ * speed_;
+      position_ += orientation_ * speed_;
     }
     if(input_.isKeyboardKeyDown(SDL_SCANCODE_DOWN) || input_.isKeyboardKeyDown(SDL_SCANCODE_S))
     {
-        position_ += - orientation_ * speed_;
+      position_ += - orientation_ * speed_;
     }
     if(input_.isKeyboardKeyDown(SDL_SCANCODE_LEFT) || input_.isKeyboardKeyDown(SDL_SCANCODE_Q))
     {
-        position_ += lateralMove_ * speed_;
+      position_ += lateralMove_ * speed_;
     }
     if(input_.isKeyboardKeyDown(SDL_SCANCODE_RIGHT) || input_.isKeyboardKeyDown(SDL_SCANCODE_D))
     {
-        position_ += - lateralMove_ * speed_;
+      position_ += - lateralMove_ * speed_;
     }
 
     if(oldPosition != position_)
     {
 
-        spdlog::get("console")->debug() << "Move camera position from "
-                    << Utils::toString(oldPosition) << " to " << Utils::toString(position_);
+      spdlog::get("console")->debug() << "Move camera position from "
+      << Utils::toString(oldPosition) << " to " << Utils::toString(position_);
     }
-}
+  }
 
-void Camera::lookAt(glm::mat4 & modelview)
-{
+  void Camera::lookAt(glm::mat4 & modelview)
+  {
     modelview = glm::lookAt(position_, eyeTarget_, verticalAxis_);
 
     spdlog::get("console")->debug() << "Camera look at " << Utils::toString(modelview);
-}
+  }
 
-void Camera::setEyeTarget()
-{
+  void Camera::setEyeTarget()
+  {
     orientation_ = eyeTarget_ - position_;
     orientation_ = glm::normalize(orientation_);
 
     if(verticalAxis_.x)
     {
-        phi_ = asin(orientation_.x);
-        theta_ = acos(orientation_.y / cos(phi_));
+      phi_ = asin(orientation_.x);
+      theta_ = acos(orientation_.y / cos(phi_));
 
-        if(orientation_.y < 0)
-        {
-            theta_ *= -1;
-        }
+      if(orientation_.y < 0)
+      {
+        theta_ *= -1;
+      }
     }
     else if(verticalAxis_.y)
     {
-        phi_ = asin(orientation_.y);
-        theta_ = acos(orientation_.z / cos(phi_));
+      phi_ = asin(orientation_.y);
+      theta_ = acos(orientation_.z / cos(phi_));
 
-        if(orientation_.z < 0)
-        {
-            theta_ *= -1;
-        }
+      if(orientation_.z < 0)
+      {
+        theta_ *= -1;
+      }
     }
     else
     {
-        phi_ = asin(orientation_.x);
-        theta_ = acos(orientation_.z / cos(phi_));
+      phi_ = asin(orientation_.x);
+      theta_ = acos(orientation_.z / cos(phi_));
 
-        if(orientation_.z < 0)
-        {
-            theta_ *= -1;
-        }
+      if(orientation_.z < 0)
+      {
+        theta_ *= -1;
+      }
     }
 
     phi_ = Utils::radToDegree(phi_);
     theta_ = Utils::radToDegree(theta_);
 
     spdlog::get("console")->debug() << "Camera set eye target: phi = " << phi_ << ", theta = " << theta_;
-}
+  }
 
-void Camera::setPosition(glm::vec3 position)
-{
+  void Camera::setPosition(glm::vec3 position)
+  {
     position_ = position;
 
     updateEyeTarget();
-}
+  }
 
-glm::vec3 Camera::position()
-{
+  glm::vec3 Camera::position()
+  {
     return position_;
-}
+  }
 
-float Camera::sensibility() const
-{
+  float Camera::sensibility() const
+  {
     return sensibility_;
-}
+  }
 
-float Camera::speed() const
-{
+  float Camera::speed() const
+  {
     return speed_;
-}
+  }
 
-void Camera::setSensibility(float const sensibility)
-{
+  void Camera::setSensibility(float const sensibility)
+  {
     sensibility_ = sensibility;
-}
+  }
 
-void Camera::setSpeed(float const speed)
-{
+  void Camera::setSpeed(float const speed)
+  {
     speed_ = speed;
-}
+  }
 
-glm::vec3 Camera::orientation() const
-{
+  glm::vec3 Camera::orientation() const
+  {
     return orientation_;
-}
+  }
 
-void Camera::setOrientation(const glm::vec3 &orientation)
-{
+  void Camera::setOrientation(const glm::vec3 &orientation)
+  {
     orientation_ = orientation;
     updateEyeTarget();
-}
+  }
 
-void Camera::updateEyeTarget()
-{
+  void Camera::updateEyeTarget()
+  {
     eyeTarget_ = position_ + orientation_;
 
     spdlog::get("console")->debug() << "Update eye target: " << Utils::toString(eyeTarget_);
-}
-float Camera::phi() const
-{
+  }
+  float Camera::phi() const
+  {
     return phi_;
-}
+  }
 
-void Camera::setPhi(float phi)
-{
+  void Camera::setPhi(float phi)
+  {
     phi_ = phi;
-}
-float Camera::theta() const
-{
+  }
+  float Camera::theta() const
+  {
     return theta_;
-}
+  }
 
-void Camera::setTheta(float theta)
-{
+  void Camera::setTheta(float theta)
+  {
     theta_ = theta;
-}
+  }

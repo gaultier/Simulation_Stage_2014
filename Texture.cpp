@@ -5,33 +5,33 @@
 std::vector<std::shared_ptr<Texture>> TextureFactory::textures_;
 
 Texture::Texture(std::string const & file):
-    file_ {file},
-    id_ {0}
-{
+  file_ {file},
+  id_ {0}
+  {
     load();
-}
+  }
 
-Texture::~Texture()
-{
+  Texture::~Texture()
+  {
     glDeleteTextures(1, &id_);
-}
+  }
 
-bool Texture::load()
-{
+  bool Texture::load()
+  {
     SDL_Surface *imageSDL = IMG_Load(file_.c_str());
 
     if(imageSDL == 0)
     {
-        spdlog::get("console")->error() << "Error loading texture " << file_ << ": " << SDL_GetError();
+      spdlog::get("console")->error() << "Error loading texture " << file_ << ": " << SDL_GetError();
 
-        return false;
+      return false;
     }
     SDL_Surface * invertedImage = invertPixels(imageSDL);
     SDL_FreeSurface(imageSDL);
 
     //Delete former texture
     if(glIsTexture(id_) == GL_TRUE)
-        glDeleteTextures(1, &id_);
+    glDeleteTextures(1, &id_);
 
     //Generate id
     glGenTextures(1, &id_);
@@ -45,36 +45,36 @@ bool Texture::load()
 
     if(invertedImage->format->BytesPerPixel == 3)
     {
-        internalFormat = GL_RGB;
+      internalFormat = GL_RGB;
 
-        if(invertedImage->format->Rmask == 0xff)
-        {
-            format = GL_RGB;
-        }
-        else
-        {
-            format = GL_BGR;
-        }
+      if(invertedImage->format->Rmask == 0xff)
+      {
+        format = GL_RGB;
+      }
+      else
+      {
+        format = GL_BGR;
+      }
     }
     else if(invertedImage->format->BytesPerPixel == 4)
     {
-        internalFormat = GL_RGBA;
+      internalFormat = GL_RGBA;
 
-        if(invertedImage->format->Rmask == 0xff)
-        {
-            format = GL_RGBA;
-        }
-        else
-        {
-            format = GL_BGRA;
-        }
+      if(invertedImage->format->Rmask == 0xff)
+      {
+        format = GL_RGBA;
+      }
+      else
+      {
+        format = GL_BGRA;
+      }
     }
     else
     {
-        spdlog::get("console")->error() << "Error: image internal format unknown";
+      spdlog::get("console")->error() << "Error: image internal format unknown";
 
-        SDL_FreeSurface(invertedImage);
-        return false;
+      SDL_FreeSurface(invertedImage);
+      return false;
     }
 
     //PixelCopy
@@ -90,23 +90,23 @@ bool Texture::load()
     SDL_FreeSurface(invertedImage);
 
     return true;
-}
+  }
 
-GLuint Texture::id() const
-{
+  GLuint Texture::id() const
+  {
     return id_;
-}
+  }
 
-void Texture::setFile(const std::string &file)
-{
+  void Texture::setFile(const std::string &file)
+  {
     file_ = file;
-}
+  }
 
-SDL_Surface * Texture::invertPixels(SDL_Surface * source) const
-{
+  SDL_Surface * Texture::invertPixels(SDL_Surface * source) const
+  {
     SDL_Surface * invertedImage = SDL_CreateRGBSurface(0, source->w, source->h, source->format->BitsPerPixel,
-                                                       source->format->Rmask, source->format->Gmask, source->format->Bmask, source->format->Amask
-                                                       );
+    source->format->Rmask, source->format->Gmask, source->format->Bmask, source->format->Amask
+    );
 
     unsigned char* pixels = (unsigned char*) source->pixels;
     unsigned char* invertedPixels = (unsigned char*) invertedImage->pixels;
@@ -114,47 +114,47 @@ SDL_Surface * Texture::invertPixels(SDL_Surface * source) const
 
     for(int i=0; i < source->h; i++)
     {
-        for(int j=0; j < width; j++)
-        {
-            int pos = width * i + j;
-            int invertedPos = (width * (source->h - 1 - i)) + j;
-            invertedPixels[pos] = pixels[invertedPos];
-        }
+      for(int j=0; j < width; j++)
+      {
+        int pos = width * i + j;
+        int invertedPos = (width * (source->h - 1 - i)) + j;
+        invertedPixels[pos] = pixels[invertedPos];
+      }
     }
 
     return invertedImage;
-}
+  }
 
-Texture::Texture(Texture const & texture)
-{
+  Texture::Texture(Texture const & texture)
+  {
     file_ = texture.file_;
     load();
-}
+  }
 
-Texture& Texture::operator=(Texture const &texture)
-{
+  Texture& Texture::operator=(Texture const &texture)
+  {
     file_ = texture.file_;
     load();
 
     return *this;
-}
+  }
 
-const std::string & Texture::file() const
-{
+  const std::string & Texture::file() const
+  {
     return file_;
-}
+  }
 
-std::shared_ptr<Texture> & TextureFactory::createTexture(std::string const & file)
-{
+  std::shared_ptr<Texture> & TextureFactory::createTexture(std::string const & file)
+  {
     spdlog::get("console")->debug() << "Looking for texture " << file;
 
     for(auto & texture : TextureFactory::textures_)
     {
-        if(texture->file() == file)
-        {
-            spdlog::get("console")->debug() << "Found texture: " << file;
-            return texture;
-        }
+      if(texture->file() == file)
+      {
+        spdlog::get("console")->debug() << "Found texture: " << file;
+        return texture;
+      }
     }
 
     //Texture not found
@@ -163,21 +163,21 @@ std::shared_ptr<Texture> & TextureFactory::createTexture(std::string const & fil
 
 
     return TextureFactory::textures_.back();
-}
+  }
 
-std::string TextureFactory::toString()
-{
+  std::string TextureFactory::toString()
+  {
     std::string res = "Texture factory = ";
 
     for(const auto & t : textures_)
     {
-        res += t->file() + ": " + std::to_string(t.use_count()) + "\n";
+      res += t->file() + ": " + std::to_string(t.use_count()) + "\n";
     }
 
     return res;
-}
+  }
 
-void TextureFactory::destroyTextures()
-{
+  void TextureFactory::destroyTextures()
+  {
     textures_.clear();
-}
+  }
