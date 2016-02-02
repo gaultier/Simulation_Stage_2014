@@ -3,3 +3,5 @@ Shaders
 log.*
 build
 *.pro.user
+html
+latex
