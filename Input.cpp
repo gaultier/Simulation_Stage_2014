@@ -2,7 +2,7 @@
 #include "Utils.h"
 #include "Scene.h"
 #include "Oculus.h"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 
 #include <iostream>
 
@@ -41,12 +41,12 @@ void Input::updateEvent()
         {
         case SDL_KEYDOWN:
             keyboardKeys_[event_.key.keysym.scancode] = KEY::DOWN;
-            logger->debug(logger->get() << "The key: " << SDL_GetScancodeName(event_.key.keysym.scancode) << " was pressed");
+            spdlog::get("console")->debug() << "The key: " << SDL_GetScancodeName(event_.key.keysym.scancode) << " was pressed";
             break;
 
         case SDL_KEYUP:
             keyboardKeys_[event_.key.keysym.scancode] = KEY::UP;
-            logger->debug(logger->get() << "The key: " << SDL_GetScancodeName(event_.key.keysym.scancode) << " was released");
+            spdlog::get("console")->debug() << "The key: " << SDL_GetScancodeName(event_.key.keysym.scancode) << " was released";
             break;
 
         case SDL_MOUSEBUTTONDOWN:
@@ -158,5 +158,3 @@ void Input::setOculus(std::unique_ptr<GenericOculus> oculus)
 {
     oculus_ = std::move(oculus);
 }
-
-

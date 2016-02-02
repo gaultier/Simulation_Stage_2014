@@ -2,17 +2,15 @@
 
 NullOculus::NullOculus()
 {
-    logger->trace(logger->get() << "Null oculus constructor");
 }
 
 NullOculus::~NullOculus()
 {
-    logger->trace(logger->get() << "Null oculus destructor");
 }
 
 bool GenericOculus::isMoving() const
 {
-    logger->debug(logger->get() << "Generic Oculus is not moving");
+    spdlog::get("console")->debug() << "Generic Oculus is not moving";
     return false;
 }
 
@@ -25,4 +23,3 @@ glm::vec3 GenericOculus::dAngles() const
 {
     return glm::vec3(0, 0, 0);
 }
-

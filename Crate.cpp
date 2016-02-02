@@ -2,13 +2,12 @@
 #include "Crate.h"
 #include "Include/glm/gtx/transform.hpp"
 #include "Include/glm/gtc/type_ptr.hpp"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 
 Crate::Crate(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader, std::string const & textureFile):
     Cube(x, y, z, size, vertexShader, fragmentShader),
     texture_ {nullptr}
 {
-    logger->trace(logger->get() << "Crate constructor: " << textureFile);
     //Shared texture pool
     texture_ = TextureFactory::createTexture(textureFile);
 
@@ -30,9 +29,7 @@ Crate::Crate(float x, float y, float z, float size, std::string const & vertexSh
                      0, 0,   1, 0,   1, 1,     // Face 6
                      0, 0,   0, 1,   1, 1};    // Face 6
 
-    logger->trace(logger->get() << "Before crate load");
     load();
-    logger->trace(logger->get() << "Crate loaded");
 }
 
 Crate::Crate(int x, int y, int z, float size, std::string const & texture):
@@ -42,7 +39,6 @@ Crate::Crate(int x, int y, int z, float size, std::string const & texture):
 
 Crate::~Crate()
 {
-    logger->trace(logger->get() << "Crate destructor");
 }
 
 void Crate::draw(glm::mat4 &projection, glm::mat4 &modelview)
@@ -118,7 +114,6 @@ int Crate::nbTextureBytes()
 
 void Crate::print()
 {
-    logger->debug(logger->get() << "Crate:  texture name = " << texture_->file()
-                << ", texture id = " << texture_->id());
+    spdlog::get("console")->debug() << "Crate:  texture name = " << texture_->file()
+                << ", texture id = " << texture_->id();
 }
-

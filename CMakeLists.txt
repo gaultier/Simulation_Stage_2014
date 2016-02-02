@@ -9,8 +9,6 @@ add_executable(${PROJECT_NAME} ${SRC_LIST})
 
 # Includes
 include_directories(Include)
-include_directories(.)
-include_directories(spdlog/include)
 
 #OpenGL
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} SDL2 GL GLU SDL2 SDL2_image GLEW)
@@ -19,4 +17,4 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME} udev ovr pthread X11 Xinerama Xrandr)
 #Boost
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} boost_program_options)
 
-set(CMAKE_CXX_FLAGS "-std=c++14 -O2 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-std=c++14 -g -Wall -Wextra")

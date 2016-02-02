@@ -1,5 +1,5 @@
 #include "Utils.h"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 
 #include <iostream>
 #include <fstream>
@@ -51,7 +51,7 @@ void GLGetError()
             error += "Unknown error";
             break;
         }
-        logger->error(logger->get() << error);
+        spdlog::get("console")->error() << error;
     }
 }
 
@@ -79,11 +79,11 @@ float clamp(float phi, float limit)
 
     if(phi != res)
     {
-        logger->debug(logger->get() << "Clamped the angle from " << phi << " to " << res);
+        spdlog::get("console")->debug() << "Clamped the angle from " << phi << " to " << res;
     }
     else
     {
-        logger->debug(logger->get() << "No need to clamp the angle");
+        spdlog::get("console")->debug() << "No need to clamp the angle";
     }
 
     return res;
@@ -148,13 +148,12 @@ void clamp(glm::vec3 & vecToClamp, glm::vec3 const & clampMin, glm::vec3 const &
 
     if(oldVec != vecToClamp)
     {
-        logger->debug(logger->get() << "Clamped the vec3 from " << Utils::toString(oldVec)
-                                  << " to " << Utils::toString(vecToClamp));
+        spdlog::get("console")->debug() << "Clamped the vec3 from " << Utils::toString(oldVec)
+                                  << " to " << Utils::toString(vecToClamp);
     }
     else
     {
-        logger->debug(logger->get() << "No need to clamp the vector");
+        spdlog::get("console")->debug() << "No need to clamp the vector";
     }
 }
 }
-

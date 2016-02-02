@@ -1,5 +1,5 @@
 #include "GraphicObject.h"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 
 #include <cstring>
 
@@ -12,12 +12,10 @@ GraphicObject::GraphicObject(float x, float y, float z, float size, std::string 
     VBOId_ {0},
     VAOId_ {0}
 {
-    logger->trace(logger->get() << "Graphic object constructor");
 }
 
 GraphicObject::~GraphicObject()
 {
-    logger->trace(logger->get() << "Graphic object destructor");
     if(glIsBuffer(VBOId_)  == GL_TRUE)
     {
         glDeleteBuffers(1, &VBOId_);
@@ -52,7 +50,7 @@ void GraphicObject::updateVBO(void* data, int bytesSize, int offset)
 
         if(VBOAdress == nullptr)
         {
-            logger->error(logger->get() << "Cannot get the VBO address");
+            spdlog::get("console")->error() << "Cannot get the VBO address";
 
             glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -67,10 +65,8 @@ void GraphicObject::updateVBO(void* data, int bytesSize, int offset)
 
 NullGraphicObject::NullGraphicObject()
 {
-    logger->trace(logger->get() << "Null graphic object constructor ");
 }
 
 NullGraphicObject::~NullGraphicObject()
 {
-    logger->trace(logger->get() << "Null graphic object destructor ");
 }

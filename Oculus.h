@@ -20,7 +20,7 @@
 #include "Include/glm/glm.hpp"
 #include "SDL2/SDL_syswm.h"
 #include "Utils.h"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 
 #include <iostream>
 //To ignore the asserts uncomment this line:
@@ -82,7 +82,6 @@ public:
     {
         //Oculus is a singleton and cannot be instanciated twice
         assert(!alreadyCreated);
-        logger->debug(logger->get() << "Oculus constructor" );
 
         ovr_Initialize();
 
@@ -96,7 +95,7 @@ public:
             //Cannot create the debug hmd
             assert(hmd_);
 
-            logger->debug(logger->get() << "Using the debug hmd");
+            spdlog::get("console")->debug() << "Using the debug hmd";
         }
 
         ovrHmd_GetDesc(hmd_, &hmdDesc_);
@@ -131,7 +130,6 @@ public:
      */
     ~Oculus()
     {
-        logger->debug(logger->get() << "Oculus destructor");
         glDeleteFramebuffers(1, &FBOId_);
         glDeleteTextures(1, &textureId_);
         glDeleteRenderbuffers(1, &depthBufferId_);
@@ -249,24 +247,24 @@ public:
 
             dAngles_ = angles_ - oldAngles;
 
-            logger->debug(logger->get() << "Angles: "
+            spdlog::get("console")->debug() << "Angles: "
                         << OVR::RadToDegree(angles_[0]) << ", "
                         << OVR::RadToDegree(angles_[1]) << ", "
-                        << OVR::RadToDegree(angles_[1]) << " degrees");
+                        << OVR::RadToDegree(angles_[1]) << " degrees";
 
-            logger->debug(logger->get() << "Angles: "
+            spdlog::get("console")->debug() << "Angles: "
                         << angles_[0] << ", "
                         << angles_[1] << ", "
-                        << angles_[1] << " rad");
+                        << angles_[1] << " rad";
 
-            logger->debug(logger->get() << "DAngles: "
+            spdlog::get("console")->debug() << "DAngles: "
                         << OVR::RadToDegree(dAngles_[0]) << ", "
                         << OVR::RadToDegree(dAngles_[1]) << ", "
-                        << OVR::RadToDegree(dAngles_[1]) << " degrees");
+                        << OVR::RadToDegree(dAngles_[1]) << " degrees";
         }
         else
         {
-            logger->debug(logger->get() << "No input data (using debug hmd)");
+            spdlog::get("console")->debug() << "No input data (using debug hmd)";
         }
     }
 
@@ -426,7 +424,7 @@ protected:
         windowSize_.w = scene_.windowWidth();
         windowSize_.h = scene_.windowHeight();
 
-        logger->debug(logger->get() << "Fov: " << Utils::radToDegree(2 * atan(hmdDesc_.DefaultEyeFov[0].UpTan)));
+        spdlog::get("console")->debug() << "Fov: " << Utils::radToDegree(2 * atan(hmdDesc_.DefaultEyeFov[0].UpTan));
 
         textureSizeLeft_ = ovrHmd_GetFovTextureSize(hmd_, ovrEye_Left, hmdDesc_.DefaultEyeFov[0], 1.0f);
         textureSizeRight_ = ovrHmd_GetFovTextureSize(hmd_, ovrEye_Right, hmdDesc_.DefaultEyeFov[1], 1.0f);

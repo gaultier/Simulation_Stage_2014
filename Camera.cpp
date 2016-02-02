@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include "Utils.h"
 #include "Include/glm/gtx/transform.hpp"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 #include "Include/glm/gtc/type_ptr.hpp"
 
 
@@ -28,7 +28,7 @@ Camera::~Camera()
 
 void Camera::orientate(float xRel, float yRel)
 {
-    logger->debug(logger->get() << "Orientate: xRel = " << xRel << ", yRel = " << yRel);
+    spdlog::get("console")->debug() << "Orientate: xRel = " << xRel << ", yRel = " << yRel;
 
     phi_ += - yRel * sensibility_;
     theta_ += - xRel * sensibility_;
@@ -95,16 +95,16 @@ void Camera::moveOrientation()
         {
             float x = input_.mouseXRel();
             float y = input_.mouseYRel();
-            logger->debug(logger->get() << "Oculus is moving (debug): x = " << x << ", y = " << y);
+            spdlog::get("console")->debug() << "Oculus is moving (debug): x = " << x << ", y = " << y;
 
             orientate(x, y);
         }
         else
         {
-            logger->debug(logger->get() << "dAngle x: " << input_.oculus()->dAngles().x);
+            spdlog::get("console")->debug() << "dAngle x: " << input_.oculus()->dAngles().x;
             float xRad = Utils::radToDegree(input_.oculus()->dAngles().x);
             float yRad = Utils::radToDegree(input_.oculus()->dAngles().y);
-            logger->debug(logger->get() << "Oculus is moving (real): xRad = " << xRad << ", yRad = " << yRad);
+            spdlog::get("console")->info()  << "Oculus is moving (real): xRad = " << xRad << ", yRad = " << yRad;
 
             orientate( - xRad, - yRad);
         }
@@ -112,8 +112,8 @@ void Camera::moveOrientation()
 
     if(oldOrientation != orientation_)
     {
-        logger->debug(logger->get() << "Move camera orientation from "
-                    << Utils::toString(oldOrientation) << " to " << Utils::toString(orientation_));
+        spdlog::get("console")->debug() << "Move camera orientation from "
+                    << Utils::toString(oldOrientation) << " to " << Utils::toString(orientation_);
     }
 }
 
@@ -141,8 +141,8 @@ void Camera::movePosition()
     if(oldPosition != position_)
     {
 
-        logger->debug(logger->get() << "Move camera position from "
-                    << Utils::toString(oldPosition) << " to " << Utils::toString(position_));
+        spdlog::get("console")->debug() << "Move camera position from "
+                    << Utils::toString(oldPosition) << " to " << Utils::toString(position_);
     }
 }
 
@@ -150,7 +150,7 @@ void Camera::lookAt(glm::mat4 & modelview)
 {
     modelview = glm::lookAt(position_, eyeTarget_, verticalAxis_);
 
-    logger->debug(logger->get() << "Camera look at " << Utils::toString(modelview));
+    spdlog::get("console")->debug() << "Camera look at " << Utils::toString(modelview);
 }
 
 void Camera::setEyeTarget()
@@ -192,7 +192,7 @@ void Camera::setEyeTarget()
     phi_ = Utils::radToDegree(phi_);
     theta_ = Utils::radToDegree(theta_);
 
-    logger->debug(logger->get() << "Camera set eye target: phi = " << phi_ << ", theta = " << theta_);
+    spdlog::get("console")->debug() << "Camera set eye target: phi = " << phi_ << ", theta = " << theta_;
 }
 
 void Camera::setPosition(glm::vec3 position)
@@ -242,7 +242,7 @@ void Camera::updateEyeTarget()
 {
     eyeTarget_ = position_ + orientation_;
 
-    logger->debug(logger->get() << "Update eye target: " << Utils::toString(eyeTarget_));
+    spdlog::get("console")->debug() << "Update eye target: " << Utils::toString(eyeTarget_);
 }
 float Camera::phi() const
 {
@@ -262,5 +262,3 @@ void Camera::setTheta(float theta)
 {
     theta_ = theta;
 }
-
-

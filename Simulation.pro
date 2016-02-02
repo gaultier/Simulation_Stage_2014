@@ -308,7 +308,6 @@ HEADERS += \
     Include/OVR/OVR/LibOVR/Src/OVR_Win32_SensorDevice.h \
     Include/OVR/3rdParty/EDID/edid.h \
     Include/OVR/3rdParty/TinyXml/tinyxml2.h \
-    LogCpp/Log.h
 
 CONFIG += c++11
 CONFIG -= qt

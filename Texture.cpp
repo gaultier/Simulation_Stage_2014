@@ -1,6 +1,6 @@
 #include "Texture.h"
 #include "Utils.h"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 
 std::vector<std::shared_ptr<Texture>> TextureFactory::textures_;
 
@@ -8,13 +8,11 @@ Texture::Texture(std::string const & file):
     file_ {file},
     id_ {0}
 {
-    logger->trace(logger->get() << "Texture constructor: " << file_);
     load();
 }
 
 Texture::~Texture()
 {
-    logger->trace(logger->get() << "Texture destructor: " << file_);
     glDeleteTextures(1, &id_);
 }
 
@@ -24,7 +22,7 @@ bool Texture::load()
 
     if(imageSDL == 0)
     {
-        logger->error(logger->get() << "Error loading texture " << file_ << ": " << SDL_GetError());
+        spdlog::get("console")->error() << "Error loading texture " << file_ << ": " << SDL_GetError();
 
         return false;
     }
@@ -73,7 +71,7 @@ bool Texture::load()
     }
     else
     {
-        logger->error(logger->get() << "Error: image internal format unknown");
+        spdlog::get("console")->error() << "Error: image internal format unknown";
 
         SDL_FreeSurface(invertedImage);
         return false;
@@ -148,20 +146,20 @@ const std::string & Texture::file() const
 
 std::shared_ptr<Texture> & TextureFactory::createTexture(std::string const & file)
 {
-    logger->debug(logger->get() << "Looking for texture " << file);
+    spdlog::get("console")->debug() << "Looking for texture " << file;
 
     for(auto & texture : TextureFactory::textures_)
     {
         if(texture->file() == file)
         {
-            logger->debug(logger->get() << "Found texture: " << file);
+            spdlog::get("console")->debug() << "Found texture: " << file;
             return texture;
         }
     }
 
     //Texture not found
     TextureFactory::textures_.push_back(std::shared_ptr<Texture>(new Texture(file)));
-    logger->debug(logger->get() << "Created texture: " << file);
+    spdlog::get("console")->debug() << "Created texture: " << file;
 
 
     return TextureFactory::textures_.back();
@@ -183,5 +181,3 @@ void TextureFactory::destroyTextures()
 {
     textures_.clear();
 }
-
-

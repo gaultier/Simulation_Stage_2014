@@ -2,15 +2,16 @@
 #include "Cube.h"
 #include "Include/glm/gtx/transform.hpp"
 #include "Include/glm/gtc/type_ptr.hpp"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 
 #include <algorithm>
 #include <chrono>
 
+using namespace std;
+
 Cube::Cube(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader):
     GraphicObject(x, y, z, size, vertexShader, fragmentShader)
 {
-    logger->trace(logger->get() << "Cube constructor");
 
     shader_->load();
 
@@ -59,8 +60,8 @@ Cube::Cube(float x, float y, float z, float size, std::string const & vertexShad
 
     auto endCubeColors = std::chrono::high_resolution_clock::now();
 
-    logger->debug(logger->get() << "Cube colors part took "
-                << chrono::duration_cast<std::chrono::microseconds>(endCubeColors - startCubeColors).count() << " micros");
+    spdlog::get("console")->debug() << "Cube colors part took "
+                << chrono::duration_cast<std::chrono::microseconds>(endCubeColors - startCubeColors).count() << " micros";
     load();
 }
 

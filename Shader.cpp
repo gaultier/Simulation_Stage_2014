@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 
 Shader::Shader() :
     vertexID_ {0},
@@ -95,7 +95,7 @@ bool Shader::load()
         glGetShaderInfoLog(programID_, errorSize, &errorSize, error);
         error[errorSize] = '\0';
 
-        logger->error(logger->get() << "Shader link error: " << error);
+        spdlog::get("console")->error() << "Shader link error: " << error;
 
         delete[] error;
         glDeleteProgram(programID_);
@@ -115,7 +115,7 @@ bool Shader::compile(GLuint &shader, GLenum type, std::string const &sourceFile)
 
     if( ! shader)
     {
-        logger->error(logger->get() << "Shader type does not exist: " << type);
+        spdlog::get("console")->error() << "Shader type does not exist: " << type;
 
         return false;
     }
@@ -127,7 +127,7 @@ bool Shader::compile(GLuint &shader, GLenum type, std::string const &sourceFile)
 
     if(!file)
     {
-        logger->error(logger->get() << "Shader: cannot find the source file " << sourceFile);
+        spdlog::get("console")->error() << "Shader: cannot find the source file " << sourceFile;
 
         glDeleteShader(shader);
 
@@ -163,7 +163,7 @@ bool Shader::compile(GLuint &shader, GLenum type, std::string const &sourceFile)
         glGetShaderInfoLog(shader, errorSize, &errorSize, error);
         error[errorSize] = '\0';
 
-        logger->error(logger->get() << "Shader compilation error: " << error);
+        spdlog::get("console")->error() << "Shader compilation error: " << error;
 
         delete[] error;
         glDeleteShader(shader);
@@ -203,6 +203,3 @@ void Shader::setFragmentSource(const std::string& fragmentSource)
 {
     fragmentSource_ = fragmentSource;
 }
-
-
-

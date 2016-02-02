@@ -8,13 +8,14 @@
 #include "GraphicObject.h"
 #include "Plane.h"
 #include "Utils.h"
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 
 #include <numeric>
 #include <random>
 #include <chrono>
 
-std::unique_ptr<Logger> logger(new Logger("log.log", "log.err", true, Severity::error | Severity::info));
+using namespace std;
+
 std::unique_ptr<NullOculus> nullOculus(new NullOculus);
 
 Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oculusRender, bool fullscreen, std::string textureName, unsigned long objectsCount, int size, int octantSize, int  octantsDrawnCount):
@@ -34,8 +35,6 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
     frameCount_ {0},
     textureName_ {textureName}
 {
-    logger->trace(logger->get() << "Scene constructor");
-
     input_ = std::unique_ptr<Input>(new Input(this));
     input_->showCursor(false);
     input_->capturePointer(true);
@@ -51,15 +50,15 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
     gObjects_.setEmptyValue(std::shared_ptr<NullGraphicObject>(new NullGraphicObject));
 
     assert(initWindow());
-    logger->debug(logger->get() << "Window was initialized");
+    spdlog::get("console")->debug() << "Window was initialized";
 
     assert(initGL());
-    logger->debug(logger->get() << "OpenGL was initialized");
+    spdlog::get("console")->debug() << "OpenGL was initialized";
 
     if(oculusRender_)
     {
         input_->setOculus(std::unique_ptr<GenericOculus>(new Oculus<Scene>(*this)));
-        logger->debug(logger->get() << "Oculus view");
+        spdlog::get("console")->debug() << "Oculus view";
     }
 
     initGObjects();
@@ -78,7 +77,7 @@ bool Scene::initWindow()
 {
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-        logger->error(logger->get() << "Error opening the SDL : " << SDL_GetError());
+        spdlog::get("console")->error() << "Error opening the SDL : " << SDL_GetError();
         SDL_Quit();
 
         return false;
@@ -103,7 +102,7 @@ bool Scene::initWindow()
 
     if(window_ == nullptr)
     {
-        logger->error(logger->get() << "Error creating the window: " << SDL_GetError());
+        spdlog::get("console")->error() << "Error creating the window: " << SDL_GetError();
         SDL_Quit();
 
         return -1;
@@ -114,7 +113,7 @@ bool Scene::initWindow()
 
     if( ! context_)
     {
-        logger->error(logger->get() << "Error creating the OpenGl context: " << SDL_GetError());
+        spdlog::get("console")->error() << "Error creating the OpenGl context: " << SDL_GetError();
         SDL_DestroyWindow(window_);
         SDL_Quit();
 
@@ -130,7 +129,7 @@ bool Scene::initGL()
     GLenum initGLEW( glewInit() );
     if(initGLEW != GLEW_OK)
     {
-        logger->error(logger->get() << "Error opening GLEW : " << glewGetErrorString(initGLEW));
+        spdlog::get("console")->error() << "Error opening GLEW : " << glewGetErrorString(initGLEW);
 
         SDL_GL_DeleteContext(context_);
         SDL_DestroyWindow(window_);
@@ -161,14 +160,14 @@ void Scene::initGObjects()
         gObjects_(x, y, z) = std::shared_ptr<Crate>(new Crate(x, y, z, 1.0, textureName_));
         auto endCrateGeneration = std::chrono::high_resolution_clock::now();
 
-        logger->debug(logger->get() << "Generated crate n°" << i << " at position ("
+        spdlog::get("console")->debug() << "Generated crate n°" << i << " at position ("
                     << x << ", " << y << ", " << z << ") in "
-                    << chrono::duration_cast<std::chrono::milliseconds>(endCrateGeneration - startCrateGeneration).count() << " ms");
+                    << chrono::duration_cast<std::chrono::milliseconds>(endCrateGeneration - startCrateGeneration).count() << " ms";
     }
     auto endGeneration = std::chrono::high_resolution_clock::now();
     auto generationTime = std::chrono::duration_cast<std::chrono::milliseconds>(endGeneration - startGeneration).count();
 
-    logger->info(logger->get() << "Summary: the generation of " << gObjectsCount_ << " graphic objects took " << generationTime << " ms");
+    spdlog::get("console")->info() << "Summary: the generation of " << gObjectsCount_ << " graphic objects took " << generationTime << " ms";
 }
 
 void Scene::mainLoop()
@@ -225,7 +224,7 @@ void Scene::mainLoop()
 
 void Scene::doEnd()
 {
-    logger->info(logger->get() << "Mean fps at the end; " << fps_);
+    spdlog::get("console")->info() << "Mean fps: " << fps_;
 }
 
 void Scene::render()
@@ -294,8 +293,8 @@ void Scene::updateFPS(int elapsedTime)
     //Cumulative moving average
     fps_ = fps_ + (newFps - fps_) / (frameCount_ + 1.0);
 
-    logger->debug(logger->get() << "Current fps: " << newFps);
-    logger->debug(logger->get() << "Current cumulated mean fps: " << fps_);
+    spdlog::get("console")->debug() << "Current fps: " << newFps;
+    spdlog::get("console")->debug() << "Current cumulated mean fps: " << fps_;
 
     std::string newTitle = windowTitle_ + " (" + std::to_string(newFps) + "FPS)";
     SDL_SetWindowTitle(window_, newTitle.c_str());

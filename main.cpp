@@ -1,15 +1,18 @@
-#include "LogCpp/Log.h"
+#include "spdlog/include/spdlog/spdlog.h"
 #include "Scene.h"
 
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
 
+using namespace std;
+
 int main(int argc, char** argv)
 {
-    logger->debug(logger->get() << "Command line arguments: " << argc-1);
-
     try {
-//128 2 8
+        spdlog::set_level(spdlog::level::info);
+        auto console = spdlog::stdout_logger_mt("console");
+        spdlog::get("console")->debug() << "Command line arguments: " << argc-1;
+
         po::options_description desc("Allowed options");
         desc.add_options()
                 ("help,h", "Produce help message")
@@ -47,10 +50,6 @@ int main(int argc, char** argv)
         cerr << "error: " << e.what() << "\n";
         return 1;
     }
-    catch(...) {
-        cerr << "Exception of unknown type!\n";
-    }
-
 
     return 0;
 }
