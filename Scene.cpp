@@ -113,7 +113,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
 
     if ( ! context_)
     {
-      spdlog::get("console")->error() << "Error creating the OpenGl context: " << SDL_GetError();
+      spdlog::get("console")->error() << "Error creating the OpenGL context: " << SDL_GetError();
       SDL_DestroyWindow(window_);
       SDL_Quit();
 

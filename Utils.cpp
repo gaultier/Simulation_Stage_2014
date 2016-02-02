@@ -19,7 +19,7 @@ namespace Utils
   {
     for (GLenum currError = glGetError(); currError != GL_NO_ERROR; currError = glGetError())
     {
-      std::string error("OpenGl error: ");
+      std::string error("OpenGL error: ");
 
       switch (currError)
       {
