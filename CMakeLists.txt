@@ -10,6 +10,7 @@ add_executable(${PROJECT_NAME} ${SRC_LIST})
 # Includes
 include_directories(Include)
 include_directories(.)
+include_directories(spdlog/include)
 
 #OpenGL
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} SDL2 GL GLU SDL2 SDL2_image GLEW)
