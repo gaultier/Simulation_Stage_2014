@@ -14,11 +14,11 @@ int main(int argc, char** argv)
   try {
     spdlog::set_level(spdlog::level::info);
     auto console = spdlog::stdout_logger_mt("console");
-    spdlog::get("console")->debug() << "Command line arguments: " << argc-1;
 
     po::options_description desc("Allowed options");
     desc.add_options()
     ("help,h", "Produce help message")
+    ("verbose,v", "Verbose logs")
     ("oculus,o", "Oculus mode")
     ("fullscreen,f", "Fullscreen mode")
     ("texture,t", po::value<std::string>()->default_value("../Textures/photorealistic/photorealistic_marble/granit01.jpg"), "Set the texture used on the cubes")
@@ -37,6 +37,8 @@ int main(int argc, char** argv)
       std::cout << desc << std::endl;
       return 0;
     }
+
+    if(vm.count("verbose")) spdlog::set_level(spdlog::level::debug);
 
     Scene scene("Simulation", WINDOW_WIDTH, WINDOW_HEIGHT,
     vm.count("oculus"),

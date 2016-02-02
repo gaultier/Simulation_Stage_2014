@@ -17,4 +17,4 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME} udev ovr pthread X11 Xinerama Xrandr)
 #Boost
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} boost_program_options)
 
-set(CMAKE_CXX_FLAGS "-std=c++14 -g -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-std=c++14 -Ofast -Wall -Wextra")
