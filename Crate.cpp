@@ -36,7 +36,7 @@ Crate::Crate(float x, float y, float z, float size, std::string const & vertexSh
 }
 
 Crate::Crate(int x, int y, int z, float size, std::string const & texture):
-    Crate::Crate(x, y, z, size, "Shaders/texture.vert", "Shaders/texture.frag", texture)
+    Crate::Crate(x, y, z, size, "../Shaders/texture.vert", "../Shaders/texture.frag", texture)
 {
 }
 

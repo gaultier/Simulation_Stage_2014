@@ -327,4 +327,7 @@ OTHER_FILES += \
 
 
 QMAKE_CXXFLAGS += -Ofast -Wno-deprecated
-QMAKE_LFLAGS += -Ofast
+QMAKE_LFLAGS += -Ofast -v
+
+DISTFILES += \
+    CMakeLists.txt

@@ -1,10 +1,5 @@
-*.o
-*.swp
-*.gch
-Simulation
-*.jpg
-*.png
-*.tga
-*.txt
-log.err
-log.log
+Textures
+Shaders
+log.*
+build
+*.pro.user

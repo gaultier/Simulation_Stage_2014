@@ -65,7 +65,7 @@ Cube::Cube(float x, float y, float z, float size, std::string const & vertexShad
 }
 
 Cube::Cube(int x, int y, int z, float size):
-    Cube(x, y, z, size, "Shaders/couleur3D.vert", "Shaders/couleur3D.frag")
+    Cube(x, y, z, size, "../Shaders/couleur3D.vert", "../Shaders/couleur3D.frag")
 {
 }
 
