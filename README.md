@@ -81,3 +81,15 @@ The initial generation takes around 100ms for 1024 objects and is linear in the 
 
 ##Documentation
 Type `doxygen` in console and it should generate the documentation following the `Doxyfile` file.
+
+
+##To do
+- 60 fps in oculus mode
+- Compilation with/without oculus SDK
+- Spheres
+- Glowing effect
+- HD planet textures
+- Threaded random generation
+- Objects from map file
+- Skybox
+- Shady funky shaders
