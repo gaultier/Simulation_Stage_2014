@@ -6,6 +6,9 @@ namespace po = boost::program_options;
 
 using namespace std;
 
+#define SPDLOG_NO_THREAD_ID
+#define SPDLOG_NO_REGISTRY_MUTEX
+
 int main(int argc, char** argv)
 {
     try {
