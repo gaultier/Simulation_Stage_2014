@@ -2,21 +2,13 @@
 
 #version 150 core
 
-
-// Entree
-
 in vec2 coordTexture;
-
 
 // Uniform
 
 uniform sampler2D mtexture;
 
-
-// Sortie
-
 out vec4 out_Color;
-
 
 // Fonction main
 
