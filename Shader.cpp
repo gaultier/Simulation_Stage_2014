@@ -1,5 +1,7 @@
 #include "Shader.h"
 #include "spdlog/include/spdlog/spdlog.h"
+#include <exception>
+#include <string>
 
 Shader::Shader() :
   vertexID_ {0},
@@ -55,11 +57,9 @@ Shader::Shader() :
 
       if (glIsProgram(programID_)) glDeleteProgram(programID_);
 
-      if (!compile(vertexID_, GL_VERTEX_SHADER, vertexSource_))
-      return false;
+      if (!compile(vertexID_, GL_VERTEX_SHADER, vertexSource_)) return false;
 
-      if (!compile(fragmentID_, GL_FRAGMENT_SHADER, fragmentSource_))
-      return false;
+      if (!compile(fragmentID_, GL_FRAGMENT_SHADER, fragmentSource_)) return false;
 
       programID_ = glCreateProgram();
 
@@ -67,16 +67,13 @@ Shader::Shader() :
       glAttachShader(programID_, vertexID_);
       glAttachShader(programID_, fragmentID_);
 
-
       // Lock
       glBindAttribLocation(programID_, 0, "in_Vertex");
       glBindAttribLocation(programID_, 1, "in_Color");
       glBindAttribLocation(programID_, 2, "in_TexCoord0");
 
-
       // Link
       glLinkProgram(programID_);
-
 
       // Check link
       GLint linkError(0);
@@ -87,22 +84,16 @@ Shader::Shader() :
         GLint errorSize(0);
         glGetProgramiv(programID_, GL_INFO_LOG_LENGTH, &errorSize);
 
-        char *error = new char[errorSize + 1];
+        char error[errorSize + 1];
 
         glGetShaderInfoLog(programID_, errorSize, &errorSize, error);
+
         error[errorSize] = '\0';
 
-        spdlog::get("console")->error() << "Shader link error: " << error;
-
-        delete[] error;
-        glDeleteProgram(programID_);
-
-        return false;
+        throw std::runtime_error("Shader link error: " + std::string(error));
       }
-      else
-      {
-        return true;
-      }
+
+      return true;
     }
 
 
