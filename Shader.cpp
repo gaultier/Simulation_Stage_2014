@@ -78,10 +78,10 @@ Shader::Shader() :
       glLinkProgram(programID_);
 
       // Check link
-      GLint linkError(0);
-      glGetProgramiv(programID_, GL_LINK_STATUS, &linkError);
+      GLint linkSucess = 0;
+      glGetProgramiv(programID_, GL_LINK_STATUS, &linkSucess);
 
-      if (linkError != GL_TRUE)
+      if (!linkSucess)
       {
         GLint errorSize(0);
         glGetProgramiv(programID_, GL_INFO_LOG_LENGTH, &errorSize);
@@ -122,10 +122,10 @@ Shader::Shader() :
 
       glCompileShader(shader);
 
-      GLint compilationError(0);
-      glGetShaderiv(shader, GL_COMPILE_STATUS, &compilationError);
+      GLint compilationSuccessful = 0;
+      glGetShaderiv(shader, GL_COMPILE_STATUS, &compilationSuccessful);
 
-      if (compilationError != GL_TRUE)
+      if (!compilationSuccessful)
       {
         GLint errorSize(0);
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &errorSize);
