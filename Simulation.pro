@@ -10,7 +10,98 @@ SOURCES += \
     Scene.cpp \
     Shader.cpp \
     Texture.cpp \
-    Utils.cpp
+    Utils.cpp \
+    build/CMakeFiles/3.2.2/CompilerIdCXX/CMakeCXXCompilerId.cpp \
+    build/CMakeFiles/feature_tests.cxx \
+    Include/glm/core/dummy.cpp \
+    Include/Octree/demo.cpp \
+    Include/OVR/3rdParty/EDID/edid.cpp \
+    Include/OVR/3rdParty/TinyXml/tinyxml2.cpp \
+    Include/OVR/LibOVR/Src/CAPI/GL/CAPI_GL_DistortionRenderer.cpp \
+    Include/OVR/LibOVR/Src/CAPI/GL/CAPI_GL_Util.cpp \
+    Include/OVR/LibOVR/Src/CAPI/CAPI_DistortionRenderer.cpp \
+    Include/OVR/LibOVR/Src/CAPI/CAPI_FrameTimeManager.cpp \
+    Include/OVR/LibOVR/Src/CAPI/CAPI_GlobalState.cpp \
+    Include/OVR/LibOVR/Src/CAPI/CAPI_HMDRenderState.cpp \
+    Include/OVR/LibOVR/Src/CAPI/CAPI_HMDState.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_Alg.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_Allocator.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_Atomic.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_File.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_FileFILE.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_Lockless.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_Log.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_Math.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_RefCount.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_Std.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_String.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_String_FormatUtil.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_String_PathUtil.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_SysFile.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_System.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_ThreadsPthread.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_ThreadsWinAPI.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_Timer.cpp \
+    Include/OVR/LibOVR/Src/Kernel/OVR_UTF8Util.cpp \
+    Include/OVR/LibOVR/Src/Util/Util_ImageWindow.cpp \
+    Include/OVR/LibOVR/Src/Util/Util_Interface.cpp \
+    Include/OVR/LibOVR/Src/Util/Util_LatencyTest.cpp \
+    Include/OVR/LibOVR/Src/Util/Util_LatencyTest2.cpp \
+    Include/OVR/LibOVR/Src/Util/Util_MagCalibration.cpp \
+    Include/OVR/LibOVR/Src/Util/Util_Render_Stereo.cpp \
+    Include/OVR/LibOVR/Src/OVR_CAPI.cpp \
+    Include/OVR/LibOVR/Src/OVR_Common_HMDDevice.cpp \
+    Include/OVR/LibOVR/Src/OVR_DeviceHandle.cpp \
+    Include/OVR/LibOVR/Src/OVR_DeviceImpl.cpp \
+    Include/OVR/LibOVR/Src/OVR_JSON.cpp \
+    Include/OVR/LibOVR/Src/OVR_LatencyTestImpl.cpp \
+    Include/OVR/LibOVR/Src/OVR_Linux_DeviceManager.cpp \
+    Include/OVR/LibOVR/Src/OVR_Linux_HIDDevice.cpp \
+    Include/OVR/LibOVR/Src/OVR_Linux_HMDDevice.cpp \
+    Include/OVR/LibOVR/Src/OVR_Linux_SensorDevice.cpp \
+    Include/OVR/LibOVR/Src/OVR_OSX_DeviceManager.cpp \
+    Include/OVR/LibOVR/Src/OVR_OSX_HIDDevice.cpp \
+    Include/OVR/LibOVR/Src/OVR_OSX_HMDDevice.cpp \
+    Include/OVR/LibOVR/Src/OVR_OSX_SensorDevice.cpp \
+    Include/OVR/LibOVR/Src/OVR_Profile.cpp \
+    Include/OVR/LibOVR/Src/OVR_Recording.cpp \
+    Include/OVR/LibOVR/Src/OVR_Sensor2Impl.cpp \
+    Include/OVR/LibOVR/Src/OVR_SensorCalibration.cpp \
+    Include/OVR/LibOVR/Src/OVR_SensorFilter.cpp \
+    Include/OVR/LibOVR/Src/OVR_SensorFusion.cpp \
+    Include/OVR/LibOVR/Src/OVR_SensorImpl.cpp \
+    Include/OVR/LibOVR/Src/OVR_SensorImpl_Common.cpp \
+    Include/OVR/LibOVR/Src/OVR_SensorTimeFilter.cpp \
+    Include/OVR/LibOVR/Src/OVR_Stereo.cpp \
+    Include/OVR/LibOVR/Src/OVR_ThreadCommandQueue.cpp \
+    Include/OVR/LibOVR/Src/OVR_Win32_DeviceManager.cpp \
+    Include/OVR/LibOVR/Src/OVR_Win32_DeviceStatus.cpp \
+    Include/OVR/LibOVR/Src/OVR_Win32_HIDDevice.cpp \
+    Include/OVR/LibOVR/Src/OVR_Win32_HMDDevice.cpp \
+    Include/OVR/LibOVR/Src/OVR_Win32_SensorDevice.cpp \
+    spdlog/bench/boost-bench-mt.cpp \
+    spdlog/bench/boost-bench.cpp \
+    spdlog/bench/easylogging-bench-mt.cpp \
+    spdlog/bench/easylogging-bench.cpp \
+    spdlog/bench/g2log-async.cpp \
+    spdlog/bench/glog-bench-mt.cpp \
+    spdlog/bench/glog-bench.cpp \
+    spdlog/bench/spdlog-async.cpp \
+    spdlog/bench/spdlog-bench-mt.cpp \
+    spdlog/bench/spdlog-bench.cpp \
+    spdlog/bench/zf_log-bench-mt.cpp \
+    spdlog/bench/zf_log-bench.cpp \
+    spdlog/example/bench.cpp \
+    spdlog/example/example.cpp \
+    spdlog/include/spdlog/details/format.cc \
+    spdlog/tests/file_helper.cpp \
+    spdlog/tests/file_log.cpp \
+    spdlog/tests/format.cpp \
+    spdlog/tests/main.cpp \
+    spdlog/tests/registry.cpp \
+    spdlog/tests/utils.cpp \
+    build/CMakeFiles/3.2.2/CompilerIdC/CMakeCCompilerId.c \
+    build/CMakeFiles/feature_tests.c
 
 HEADERS += \
     Include/GL3/gl3.h \
@@ -308,6 +399,38 @@ HEADERS += \
     Include/OVR/OVR/LibOVR/Src/OVR_Win32_SensorDevice.h \
     Include/OVR/3rdParty/EDID/edid.h \
     Include/OVR/3rdParty/TinyXml/tinyxml2.h \
+    spdlog/example/utils.h \
+    spdlog/include/spdlog/details/async_log_helper.h \
+    spdlog/include/spdlog/details/async_logger_impl.h \
+    spdlog/include/spdlog/details/file_helper.h \
+    spdlog/include/spdlog/details/format.h \
+    spdlog/include/spdlog/details/line_logger.h \
+    spdlog/include/spdlog/details/log_msg.h \
+    spdlog/include/spdlog/details/logger_impl.h \
+    spdlog/include/spdlog/details/mpmc_bounded_q.h \
+    spdlog/include/spdlog/details/null_mutex.h \
+    spdlog/include/spdlog/details/os.h \
+    spdlog/include/spdlog/details/pattern_formatter_impl.h \
+    spdlog/include/spdlog/details/registry.h \
+    spdlog/include/spdlog/details/spdlog_impl.h \
+    spdlog/include/spdlog/sinks/android_sink.h \
+    spdlog/include/spdlog/sinks/base_sink.h \
+    spdlog/include/spdlog/sinks/dist_sink.h \
+    spdlog/include/spdlog/sinks/file_sinks.h \
+    spdlog/include/spdlog/sinks/null_sink.h \
+    spdlog/include/spdlog/sinks/ostream_sink.h \
+    spdlog/include/spdlog/sinks/sink.h \
+    spdlog/include/spdlog/sinks/stdout_sinks.h \
+    spdlog/include/spdlog/sinks/syslog_sink.h \
+    spdlog/include/spdlog/async_logger.h \
+    spdlog/include/spdlog/common.h \
+    spdlog/include/spdlog/formatter.h \
+    spdlog/include/spdlog/logger.h \
+    spdlog/include/spdlog/spdlog.h \
+    spdlog/include/spdlog/tweakme.h \
+    spdlog/tests/catch.hpp \
+    spdlog/tests/includes.h \
+    spdlog/tests/utils.h
 
 CONFIG += c++11
 CONFIG -= qt
@@ -329,4 +452,12 @@ QMAKE_CXXFLAGS += -Ofast -Wno-deprecated
 QMAKE_LFLAGS += -Ofast -v
 
 DISTFILES += \
-    CMakeLists.txt
+    CMakeLists.txt \
+    Shaders/basique2D.frag \
+    Shaders/couleur2D.frag \
+    Shaders/couleur3D.frag \
+    Shaders/texture.frag \
+    Shaders/basique2D.vert \
+    Shaders/couleur2D.vert \
+    Shaders/couleur3D.vert \
+    Shaders/texture.vert
