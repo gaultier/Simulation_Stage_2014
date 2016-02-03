@@ -49,14 +49,11 @@ Shader::Shader() :
 
     bool Shader::load()
     {
-      if (glIsShader(vertexID_) == GL_TRUE)
-      glDeleteShader(vertexID_);
+      if (glIsShader(vertexID_)) glDeleteShader(vertexID_);
 
-      if (glIsShader(fragmentID_) == GL_TRUE)
-      glDeleteShader(fragmentID_);
+      if (glIsShader(fragmentID_)) glDeleteShader(fragmentID_);
 
-      if (glIsProgram(programID_) == GL_TRUE)
-      glDeleteProgram(programID_);
+      if (glIsProgram(programID_)) glDeleteProgram(programID_);
 
       if (!compile(vertexID_, GL_VERTEX_SHADER, vertexSource_))
       return false;

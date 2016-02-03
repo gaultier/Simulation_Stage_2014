@@ -70,7 +70,7 @@ Crate::Crate(float x, float y, float z, float size, std::string const & vertexSh
       void Crate::load()
       {
         //VBO
-        if (glIsBuffer(VBOId_) == GL_TRUE)
+        if (glIsBuffer(VBOId_))
         {
           glDeleteBuffers(1, &VBOId_);
         }
@@ -87,7 +87,7 @@ Crate::Crate(float x, float y, float z, float size, std::string const & vertexSh
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         //VAO
-        if (glIsVertexArray(VAOId_) == GL_TRUE)
+        if (glIsVertexArray(VAOId_))
         {
           glDeleteVertexArrays(1, &VAOId_);
         }

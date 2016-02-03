@@ -32,7 +32,7 @@ Texture::Texture(std::string const & file):
     SDL_FreeSurface(imageSDL);
 
     //Delete former texture
-    if (glIsTexture(id_) == GL_TRUE)
+    if (glIsTexture(id_))
     glDeleteTextures(1, &id_);
 
     //Generate id

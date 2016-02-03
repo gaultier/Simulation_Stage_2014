@@ -16,12 +16,12 @@ GraphicObject::GraphicObject(float x, float y, float z, float size, std::string 
 
   GraphicObject::~GraphicObject()
   {
-    if (glIsBuffer(VBOId_)  == GL_TRUE)
+    if (glIsBuffer(VBOId_) )
     {
       glDeleteBuffers(1, &VBOId_);
     }
 
-    if (glIsVertexArray(VAOId_) == GL_TRUE)
+    if (glIsVertexArray(VAOId_))
     {
       glDeleteVertexArrays(1, &VAOId_);
     }

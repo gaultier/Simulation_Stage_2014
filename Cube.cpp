@@ -81,7 +81,7 @@ Cube::Cube(float x, float y, float z, float size, std::string const & vertexShad
     void Cube::load()
     {
       //VBO
-      if (glIsBuffer(VBOId_) == GL_TRUE)
+      if (glIsBuffer(VBOId_))
       {
         glDeleteBuffers(1, &VBOId_);
       }
@@ -96,7 +96,7 @@ Cube::Cube(float x, float y, float z, float size, std::string const & vertexShad
       glBindBuffer(GL_ARRAY_BUFFER, 0);
 
       //VAO
-      if (glIsVertexArray(VAOId_) == GL_TRUE)
+      if (glIsVertexArray(VAOId_))
       glDeleteVertexArrays(1, &VAOId_);
 
       glGenVertexArrays(1, &VAOId_);
