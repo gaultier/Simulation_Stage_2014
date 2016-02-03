@@ -57,9 +57,11 @@ Shader::Shader() :
 
       if (glIsProgram(programID_)) glDeleteProgram(programID_);
 
-      if (!compile(vertexID_, GL_VERTEX_SHADER, vertexSource_)) return false;
+      if (!compile(vertexID_, GL_VERTEX_SHADER, vertexSource_))
+        throw std::runtime_error("Shader vertex compilation error: " + vertexSource_);
 
-      if (!compile(fragmentID_, GL_FRAGMENT_SHADER, fragmentSource_)) return false;
+      if (!compile(fragmentID_, GL_FRAGMENT_SHADER, fragmentSource_))
+        throw std::runtime_error("Shader fragment compilation error: " + fragmentSource_);
 
       programID_ = glCreateProgram();
 
