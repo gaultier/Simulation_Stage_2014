@@ -52,7 +52,7 @@ int main(int argc, char** argv)
     scene.mainLoop();
   }
   catch (exception& e) {
-    spdlog::get("console")->error() << e.what() << "\n";
+    spdlog::get("console")->error() << e.what();
     return 1;
   }
 

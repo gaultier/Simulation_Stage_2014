@@ -3,6 +3,8 @@
 #include "spdlog/include/spdlog/spdlog.h"
 
 #include <algorithm>
+#include <exception>
+#include <string>
 
 std::vector<std::shared_ptr<Texture>> TextureFactory::textures_;
 
@@ -22,12 +24,8 @@ Texture::Texture(std::string const & file):
   {
     SDL_Surface *imageSDL = IMG_Load(file_.c_str());
 
-    if (imageSDL == 0)
-    {
-      spdlog::get("console")->error() << "Error loading texture " << file_ << ": " << SDL_GetError();
+    if (!imageSDL) throw std::runtime_error("Texture: error loading image file: " + std::string(SDL_GetError()));
 
-      return false;
-    }
     SDL_Surface * invertedImage = invertPixels(imageSDL);
     SDL_FreeSurface(imageSDL);
 
@@ -73,7 +71,7 @@ Texture::Texture(std::string const & file):
     }
     else
     {
-      spdlog::get("console")->error() << "Error: image internal format unknown";
+      spdlog::get("console")->error() << "Error: image internal format unknown: " << file_;
 
       SDL_FreeSurface(invertedImage);
       return false;
