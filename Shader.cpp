@@ -103,38 +103,20 @@ Shader::Shader() :
     {
       shader = glCreateShader(type);
 
-      if ( ! shader)
-      {
-        spdlog::get("console")->error() << "Shader type does not exist: " << type;
-
-        return false;
-      }
+      if (!shader) throw std::runtime_error("Shader type does not exist: " + std::to_string(type));
 
       std::ifstream file(sourceFile.c_str());
-
-
-      // Test d'ouverture
-
-      if (!file)
-      {
-        spdlog::get("console")->error() << "Shader: cannot find the source file " << sourceFile;
-
-        glDeleteShader(shader);
-
-        return false;
-      }
-
+      if (!file) throw std::runtime_error("Shader: cannot find the source file " + sourceFile);
 
       std::string line;
-      std::string sourceCOde;
-
+      std::string sourceCode;
 
       while(getline(file, line))
-      sourceCOde += line + '\n';
+      sourceCode += line + '\n';
 
       file.close();
 
-      const GLchar* chaineCodeSource = sourceCOde.c_str();
+      const GLchar* chaineCodeSource = sourceCode.c_str();
 
       glShaderSource(shader, 1, &chaineCodeSource, 0);
 
@@ -148,22 +130,14 @@ Shader::Shader() :
         GLint errorSize(0);
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &errorSize);
 
-        char *error = new char[errorSize + 1];
+        char error[errorSize + 1];
 
         glGetShaderInfoLog(shader, errorSize, &errorSize, error);
         error[errorSize] = '\0';
 
-        spdlog::get("console")->error() << "Shader compilation error: " << error;
-
-        delete[] error;
-        glDeleteShader(shader);
-
-        return false;
+        throw std::runtime_error("Shader link error '" + sourceFile + "': " + std::string(error));
       }
-      else
-      {
-        return true;
-      }
+      return true;
     }
 
     GLuint Shader::programID() const
