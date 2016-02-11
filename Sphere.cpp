@@ -25,9 +25,9 @@ GraphicObject(x, y, z, size, vertexShader, fragmentShader)
     colors_.push_back(0.5);
     colors_.push_back(0.5);
 
-    colors_.push_back(0.7);
-    colors_.push_back(0.7);
-    colors_.push_back(0.7);
+    colors_.push_back(0.1);
+    colors_.push_back(0.1);
+    colors_.push_back(0.1);
   }
 
   std::transform(vertices_.begin(), vertices_.end(), vertices_.begin(),
@@ -108,29 +108,31 @@ Sphere::~Sphere()
 std::vector<float> Sphere::generateVertices(int polyCount) const
 {
   const float PI = 3.1416;
-  float angleRad = 2 * PI / polyCount;
+  float thetaRad = 2 * PI / polyCount;
+  // float phiRad = thetaRad;
 
   std::vector<float> res;
 
   for (int i = 0; i < polyCount; ++i)
   {
-    float x1, y1, z1, x2, y2, z2;
-    z1 = z2 = 0.0;
+    float x1, y1, z1, x2, y2, z2, x3, y3, z3;
+    z1 = z2 = x3 = y3 = 0;
+    z3 = size_;
 
     if (i == 0)
     {
       x1 = size_;
       y1 = 0;
-      x2 = size_ * cos(angleRad);
-      y2 = size_ * sin(angleRad);
+      x2 = size_ * cos(thetaRad);
+      y2 = size_ * sin(thetaRad);
     }
     else
     {
       const int x1Index = i * 9 - 2 * 3;
       x1 = res[x1Index];
       y1 = res[x1Index + 1];
-      x2 = size_ * cos((i+1) * angleRad);
-      y2 = size_ * sin((i+1) * angleRad);
+      x2 = size_ * cos((i+1) * thetaRad);
+      y2 = size_ * sin((i+1) * thetaRad);
     }
 
     res.push_back(x1);
@@ -141,12 +143,13 @@ std::vector<float> Sphere::generateVertices(int polyCount) const
     res.push_back(y2);
     res.push_back(z2);
 
-    spdlog::get("console")->debug() << i << ": " << x1 << " " << y1 << " " << z1 << ", "
-    << x2 << " " << y2 << " " << z2;
+    spdlog::get("console")->debug() << i << ": " << x1 << " " << y1 << " " << z1 << " | "
+    << x2 << " " << y2 << " " << z2 << " | "
+    << x3 << " " << y3 << " " << z3;
 
-    res.push_back(0.0);
-    res.push_back(0.0);
-    res.push_back(size_);
+    res.push_back(x3);
+    res.push_back(y3);
+    res.push_back(z3);
   }
 
   return res;
