@@ -75,10 +75,6 @@ Examples:
 The scene is an Octree which stores the objects. Only the octant we are actually in is displayed. By tweaking the value of a parameter you can also
 display the neighbour octants.
 
-##Performance
-On the test computer (16 Gb RAM, 4 Gb VRAM, Intel GTX 980) it runs at around 30 FPS constant.
-The initial generation takes around 100ms for 1024 objects and is linear in the number of objects.
-
 ##Documentation
 Type `doxygen` in console and it should generate the documentation following the `Doxyfile` file.
 
@@ -87,9 +83,12 @@ Type `doxygen` in console and it should generate the documentation following the
 - 60 fps in oculus mode
 - Compilation with/without oculus SDK
 - Spheres
+- Load objects from .obj files / Generate vertices procedurally
+- ECS architecture
 - Glowing effect
 - HD planet textures
 - Threaded random generation
 - Objects from map file
 - Skybox
 - Shady funky shaders
+- Only render objects in viewpoint
