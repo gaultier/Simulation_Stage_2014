@@ -10,127 +10,127 @@
 using namespace std;
 
 Cube::Cube(float x, float y, float z, float size, std::string const & vertexShader, std::string const & fragmentShader):
-  GraphicObject(x, y, z, size, vertexShader, fragmentShader)
+GraphicObject(x, y, z, size, vertexShader, fragmentShader)
+{
+
+  shader_->load();
+
+  //A B C D anti clockwise with A facing x axis +, E top, F bottom
+  vertices_ = {
+    -1.0, -1.0, -1.0,   1.0, -1.0, -1.0,   1.0, 1.0, -1.0,     // Face 1 D
+    -1.0, -1.0, -1.0,   -1.0, 1.0, -1.0,   1.0, 1.0, -1.0,     // Face 1
+
+    1.0, -1.0, 1.0,   1.0, -1.0, -1.0,   1.0, 1.0, -1.0,       // Face 2 A
+    1.0, -1.0, 1.0,   1.0, 1.0, 1.0,   1.0, 1.0, -1.0,         // Face 2
+
+    -1.0, -1.0, 1.0,   1.0, -1.0, 1.0,   1.0, -1.0, -1.0,      // Face 3 F
+    -1.0, -1.0, 1.0,   -1.0, -1.0, -1.0,   1.0, -1.0, -1.0,    // Face 3
+
+    -1.0, -1.0, 1.0,   1.0, -1.0, 1.0,   1.0, 1.0, 1.0,        // Face 4 B
+    -1.0, -1.0, 1.0,   -1.0, 1.0, 1.0,   1.0, 1.0, 1.0,        // Face 4
+
+    -1.0, -1.0, -1.0,   -1.0, -1.0, 1.0,   -1.0, 1.0, 1.0,     // Face 5 C
+    -1.0, -1.0, -1.0,   -1.0, 1.0, -1.0,   -1.0, 1.0, 1.0,     // Face 5
+
+    -1.0, 1.0, 1.0,   1.0, 1.0, 1.0,   1.0, 1.0, -1.0,         // Face 6 E
+    -1.0, 1.0, 1.0,   -1.0, 1.0, -1.0,   1.0, 1.0, -1.0
+  };      // Face 6
+
+  auto startCubeColors = std::chrono::high_resolution_clock::now();
+
+
+  colors_ = {
+    1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 1
+    1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 1
+
+    0.0, 1.0, 0.0,   0.0, 1.0, 0.0,   0.0, 1.0, 0.0,           // Face 2
+    0.0, 1.0, 0.0,   0.0, 1.0, 0.0,   0.0, 1.0, 0.0,           // Face 2
+
+    0.0, 0.0, 1.0,   0.0, 0.0, 1.0,   0.0, 0.0, 1.0,           // Face 3
+    0.0, 0.0, 1.0,   0.0, 0.0, 1.0,   0.0, 0.0, 1.0,           // Face 3
+
+    1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 4
+    1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 4
+
+    0.0, 1.0, 0.0,   0.0, 1.0, 0.0,   0.0, 1.0, 0.0,           // Face 5
+    0.0, 1.0, 0.0,   0.0, 1.0, 0.0,   0.0, 1.0, 0.0,           // Face 5
+
+    0.0, 0.0, 1.0,   0.0, 0.0, 1.0,   0.0, 0.0, 1.0,           // Face 6
+    0.0, 0.0, 1.0,   0.0, 0.0, 1.0,   0.0, 0.0, 1.0
+  };          // Face 6
+
+  std::transform(vertices_.begin(), vertices_.end(), vertices_.begin(),
+  std::bind1st(std::multiplies<float>(), size/2));
+
+  auto endCubeColors = std::chrono::high_resolution_clock::now();
+
+  spdlog::get("console")->debug() << "Cube colors part took "
+  << chrono::duration_cast<std::chrono::microseconds>(endCubeColors - startCubeColors).count() << " micros";
+  load();
+}
+
+Cube::Cube(int x, int y, int z, float size):
+Cube(x, y, z, size, "../Shaders/couleur3D.vert", "../Shaders/couleur3D.frag")
+{
+}
+
+Cube::~Cube()
+{
+}
+
+void Cube::load()
+{
+  //VBO
+  if (glIsBuffer(VBOId_))
   {
-
-    shader_->load();
-
-    //A B C D anti clockwise with A facing x axis +, E top, F bottom
-    vertices_ = {
-      -1.0, -1.0, -1.0,   1.0, -1.0, -1.0,   1.0, 1.0, -1.0,     // Face 1 D
-      -1.0, -1.0, -1.0,   -1.0, 1.0, -1.0,   1.0, 1.0, -1.0,     // Face 1
-
-      1.0, -1.0, 1.0,   1.0, -1.0, -1.0,   1.0, 1.0, -1.0,       // Face 2 A
-      1.0, -1.0, 1.0,   1.0, 1.0, 1.0,   1.0, 1.0, -1.0,         // Face 2
-
-      -1.0, -1.0, 1.0,   1.0, -1.0, 1.0,   1.0, -1.0, -1.0,      // Face 3 F
-      -1.0, -1.0, 1.0,   -1.0, -1.0, -1.0,   1.0, -1.0, -1.0,    // Face 3
-
-      -1.0, -1.0, 1.0,   1.0, -1.0, 1.0,   1.0, 1.0, 1.0,        // Face 4 B
-      -1.0, -1.0, 1.0,   -1.0, 1.0, 1.0,   1.0, 1.0, 1.0,        // Face 4
-
-      -1.0, -1.0, -1.0,   -1.0, -1.0, 1.0,   -1.0, 1.0, 1.0,     // Face 5 C
-      -1.0, -1.0, -1.0,   -1.0, 1.0, -1.0,   -1.0, 1.0, 1.0,     // Face 5
-
-      -1.0, 1.0, 1.0,   1.0, 1.0, 1.0,   1.0, 1.0, -1.0,         // Face 6 E
-      -1.0, 1.0, 1.0,   -1.0, 1.0, -1.0,   1.0, 1.0, -1.0
-    };      // Face 6
-
-    auto startCubeColors = std::chrono::high_resolution_clock::now();
-
-
-    colors_ = {
-      1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 1
-      1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 1
-
-      0.0, 1.0, 0.0,   0.0, 1.0, 0.0,   0.0, 1.0, 0.0,           // Face 2
-      0.0, 1.0, 0.0,   0.0, 1.0, 0.0,   0.0, 1.0, 0.0,           // Face 2
-
-      0.0, 0.0, 1.0,   0.0, 0.0, 1.0,   0.0, 0.0, 1.0,           // Face 3
-      0.0, 0.0, 1.0,   0.0, 0.0, 1.0,   0.0, 0.0, 1.0,           // Face 3
-
-      1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 4
-      1.0, 0.0, 0.0,   1.0, 0.0, 0.0,   1.0, 0.0, 0.0,           // Face 4
-
-      0.0, 1.0, 0.0,   0.0, 1.0, 0.0,   0.0, 1.0, 0.0,           // Face 5
-      0.0, 1.0, 0.0,   0.0, 1.0, 0.0,   0.0, 1.0, 0.0,           // Face 5
-
-      0.0, 0.0, 1.0,   0.0, 0.0, 1.0,   0.0, 0.0, 1.0,           // Face 6
-      0.0, 0.0, 1.0,   0.0, 0.0, 1.0,   0.0, 0.0, 1.0
-    };          // Face 6
-
-    std::transform(vertices_.begin(), vertices_.end(), vertices_.begin(),
-    std::bind1st(std::multiplies<float>(), size/2));
-
-    auto endCubeColors = std::chrono::high_resolution_clock::now();
-
-    spdlog::get("console")->debug() << "Cube colors part took "
-    << chrono::duration_cast<std::chrono::microseconds>(endCubeColors - startCubeColors).count() << " micros";
-    load();
+    glDeleteBuffers(1, &VBOId_);
   }
 
-  Cube::Cube(int x, int y, int z, float size):
-    Cube(x, y, z, size, "../Shaders/couleur3D.vert", "../Shaders/couleur3D.frag")
-    {
-    }
+  glGenBuffers(1, &VBOId_);
+  glBindBuffer(GL_ARRAY_BUFFER, VBOId_);
 
-    Cube::~Cube()
-    {
-    }
+  glBufferData(GL_ARRAY_BUFFER, nbVerticesBytes() + nbColorsBytes(), 0, GL_STATIC_DRAW);
+  glBufferSubData(GL_ARRAY_BUFFER, 0, nbVerticesBytes(), vertices_.data());
+  glBufferSubData(GL_ARRAY_BUFFER, nbVerticesBytes(), nbColorsBytes(), colors_.data());
 
-    void Cube::load()
-    {
-      //VBO
-      if (glIsBuffer(VBOId_))
-      {
-        glDeleteBuffers(1, &VBOId_);
-      }
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-      glGenBuffers(1, &VBOId_);
-      glBindBuffer(GL_ARRAY_BUFFER, VBOId_);
+  //VAO
+  if (glIsVertexArray(VAOId_))
+  glDeleteVertexArrays(1, &VAOId_);
 
-      glBufferData(GL_ARRAY_BUFFER, nbVerticesBytes() + nbColorsBytes(), 0, GL_STATIC_DRAW);
-      glBufferSubData(GL_ARRAY_BUFFER, 0, nbVerticesBytes(), vertices_.data());
-      glBufferSubData(GL_ARRAY_BUFFER, nbVerticesBytes(), nbColorsBytes(), colors_.data());
+  glGenVertexArrays(1, &VAOId_);
+  glBindVertexArray(VAOId_);
 
-      glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ARRAY_BUFFER, VBOId_);
+  //Vertices
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+  glEnableVertexAttribArray(0);
 
-      //VAO
-      if (glIsVertexArray(VAOId_))
-      glDeleteVertexArrays(1, &VAOId_);
+  //Colors
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(nbVerticesBytes()));
+  glEnableVertexAttribArray(1);
 
-      glGenVertexArrays(1, &VAOId_);
-      glBindVertexArray(VAOId_);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-      glBindBuffer(GL_ARRAY_BUFFER, VBOId_);
-      //Vertices
-      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-      glEnableVertexAttribArray(0);
+  glBindVertexArray(0);
+}
 
-      //Colors
-      glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(nbVerticesBytes()));
-      glEnableVertexAttribArray(1);
+void Cube::draw(glm::mat4 &projection, glm::mat4 &modelview)
+{
+  modelview = glm::translate(modelview, position_);
+  glUseProgram(shader_->programID());
 
-      glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindVertexArray(VBOId_);
 
-      glBindVertexArray(0);
-    }
+  glUniformMatrix4fv(glGetUniformLocation(shader_->programID(), "modelview"), 1, GL_FALSE, glm::value_ptr(modelview));
+  glUniformMatrix4fv(glGetUniformLocation(shader_->programID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-    void Cube::draw(glm::mat4 &projection, glm::mat4 &modelview)
-    {
-      modelview = glm::translate(modelview, position_);
-      glUseProgram(shader_->programID());
+  glDrawArrays(GL_TRIANGLES, 0, vertices_.size());
 
-      glBindVertexArray(VBOId_);
+  glBindVertexArray(0);
 
-      glUniformMatrix4fv(glGetUniformLocation(shader_->programID(), "modelview"), 1, GL_FALSE, glm::value_ptr(modelview));
-      glUniformMatrix4fv(glGetUniformLocation(shader_->programID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+  glUseProgram(0);
 
-      glDrawArrays(GL_TRIANGLES, 0, vertices_.size());
-
-      glBindVertexArray(0);
-
-      glUseProgram(0);
-
-      modelview = glm::translate(modelview, - position_);
-    }
+  modelview = glm::translate(modelview, - position_);
+}
