@@ -92,3 +92,4 @@ Type `doxygen` in console and it should generate the documentation following the
 - Skybox
 - Shady funky shaders
 - Only render objects in viewpoint
+- Store textures in owner pool (unique_ptr)

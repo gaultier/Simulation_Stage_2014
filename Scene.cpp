@@ -8,10 +8,12 @@
 #include "GraphicObject.h"
 #include "Plane.h"
 #include "Utils.h"
+#include "Sphere.h"
 #include "spdlog/include/spdlog/spdlog.h"
 
 #include <numeric>
 #include <random>
+#include <memory>
 #include <chrono>
 
 using namespace std;
@@ -157,7 +159,7 @@ Scene::Scene(std::string windowTitle, int windowWidth, int windowHeight, bool oc
       int z = distribution(generator);
 
       auto startCrateGeneration = std::chrono::high_resolution_clock::now();
-      gObjects_(x, y, z) = std::shared_ptr<Crate>(new Crate(x, y, z, 1.0, textureName_));
+      gObjects_(x, y, z) = std::make_shared<Sphere>(x, y, z, 1.0);
       auto endCrateGeneration = std::chrono::high_resolution_clock::now();
 
       spdlog::get("console")->debug() << "Generated crate n°" << i << " at position ("
